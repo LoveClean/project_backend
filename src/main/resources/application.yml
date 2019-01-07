@@ -1,0 +1,96 @@
+server:
+  port: 8082
+  session-timeout: 1800
+
+# 应用信息
+app:
+  app-name: media
+  app-host: http://media-ops-backend.com
+  allow-generate-api: true
+  allow-cross-domain-access: true
+  # 开发dev 测试test  生产 master
+  env: dev
+
+# 对象存储配置
+oss:
+  accessKeyId: xoERGPROHHq82JpW
+  accessKeySecret: cqbK8uWxk9lK4C4zI8MDWQrPGb691Y
+  upload-endpoint: http://oss-cn-qingdao.aliyuncs.com
+  download-endpoint: http://dev-proj.oss-cn-qingdao.aliyuncs.com
+  bucketName: dev-proj
+  # 下载地址的有效时长，单位为ms，默认为半小时
+  download-url-expiration: 1800000
+
+bos:
+  accessKeyId: 8607282ea90e46f98f4190c9a16d6bd3
+  accessKeySecret: fa01d89c2bf64c27b2a3516e40601aa2
+  bucketName: urwork
+  upload-endpoint: http://bj.bcebos.com
+  download-endpoint: http://urwork.bj.bcebos.com
+  download-url-expiration: 1800000
+
+#直播
+lss:
+  accessKeyId: 8607282ea90e46f98f4190c9a16d6bd3
+  accessKeySecret: fa01d89c2bf64c27b2a3516e40601aa2
+  playDomain: play.urwork.cn
+  pushDomain: live.urwork.cn
+  vodEndpoint: http://vod.bj.baidubce.com
+
+spring:
+  main:
+    banner-mode: console
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    multipart:
+      enabled: true
+      max-file-size: 1024Mb
+      max-request-size: 1024Mb
+  datasource:
+    name: datasource
+    initialize: false
+    url: jdbc:mysql://119.23.29.186:3306/graduation_project?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF8
+    username: root
+    password: rootroot
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    max-active: 2
+    max-idle: 2
+    min-idle: 2
+    initial-size: 2
+    validation-query: select 1
+    test-on-borrow: true
+    test-on-return: false
+    test-while-idle: false
+    time-between-eviction-runs-millis: 3000
+    min-evictable-idle-time-millis: 3000
+    max-wait: 3000
+    jmx-enabled: true
+
+mybatis:
+  config-location: classpath:mybatis-config.xml
+  mapper-locations: classpath:mapper/*Mapper.xml
+
+
+logging:
+  path: /base-web-log
+
+# 缓存配置
+memcached:
+  servers: 119.23.29.186:11211
+  username: root
+  password:
+
+# 短信
+sms:
+  platformId: 10001
+  privateKey: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBALs+tAAOaNlKrlgVTyRF3AhOj71Q1bcgoA4rn/6vj1dj48CI5lQWyHTMcuZcYKcSut3cmpeHG2Cb2KJCVRaH4sL1IeCsdCkUGHa29NkiEsfNF+VCjlvoNQAh2jkKPu9Ptm3lnqa1ryvJNydu+kgnGrO8JdrMCVnnTyczSQsicUWfAgMBAAECgYA0MAPHSDzc4z24eyf1uirbfdn+L/uA8OzrRilvuMrA1qxxyzY3FaqFMz6LChA+QLAoigXkWdm9kXJNtyM0Bmei6JoBNU3STKqoyTOCWxdpz6jJrYPGXSw+5yBhlR5Qqv4QrKasfrERcgdngdExM5IiFCgKWJTGKkHA3guyrxyfkQJBAOk0DSjWkASfsLL2/1XiLZFlZjqHdJLyw4KFrOAsuw/OXB5UNFZVMjT2RKJE3azzFl+AOhvLBW8vRKpHxv/eBXUCQQDNjIk3OAWdWOkq3YnDTrjpR66tsXgftmSaLsfnXFGpvQUK79ZH882HPEukwXuQncRZDrS4qjUzesyXH88Ry3hDAkEAsO6ACXr5G7j4/F9wDH4lKoovTLrW1GMBuPao2hC2AGEF/TDP4KyVAh/SpPbw5TYtxFlqPQoE3n2TcEozDpApvQJBAJD7eaWbPEqZ9g0oKg26ry7MQud88C/eJOOj75i/Q1KoYrAuL0SdMPEclHZnitKclWwDtXEzjUb8bOaDpzjz/aUCQA+ulgWWI1yMgMPDzhygaymTTf4lG6X5uzpGeN7xDXTDVg2hg/SK8A49qcjYv+9wXMACbXVHvk+unxY85Itmy/M=
+  publicKey: MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC7PrQADmjZSq5YFU8kRdwITo+9UNW3IKAOK5/+r49XY+PAiOZUFsh0zHLmXGCnErrd3JqXhxtgm9iiQlUWh+LC9SHgrHQpFBh2tvTZIhLHzRflQo5b6DUAIdo5Cj7vT7Zt5Z6mta8ryTcnbvpIJxqzvCXazAlZ508nM0kLInFFnwIDAQAB
+  url: http://211.144.5.130:8073/smsPlatform/
+
+img:
+  width: 2000
+  height: 2000

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.project.dao.mapper.AdMaterialMapper">
+  <resultMap id="BaseResultMap" type="com.graduation.project.dao.entity.AdMaterial">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="adid" jdbcType="INTEGER" property="adid" />
+    <result column="materialid" jdbcType="INTEGER" property="materialid" />
+    <result column="orderindex" jdbcType="INTEGER" property="orderindex" />
+    <result column="loadstep" jdbcType="INTEGER" property="loadstep" />
+    <result column="displaytime" jdbcType="INTEGER" property="displaytime" />
+    <result column="musicpath" jdbcType="VARCHAR" property="musicpath" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="del_flag" jdbcType="CHAR" property="delFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, adid, materialid, orderindex, loadstep, displaytime, musicpath, create_by, create_date, 
+    update_by, update_date, remarks, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_ad_material
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from tb_ad_material-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+  <!--</delete>-->
+  <insert id="insert" parameterType="com.graduation.project.dao.entity.AdMaterial">
+    insert into tb_ad_material (id, adid, materialid, 
+      orderindex, loadstep, displaytime, 
+      musicpath, create_by, create_date, 
+      update_by, update_date, remarks, 
+      del_flag)
+    values (#{id,jdbcType=INTEGER}, #{adid,jdbcType=INTEGER}, #{materialid,jdbcType=INTEGER}, 
+      #{orderindex,jdbcType=INTEGER}, #{loadstep,jdbcType=INTEGER}, #{displaytime,jdbcType=INTEGER}, 
+      #{musicpath,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{updateBy,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduation.project.dao.entity.AdMaterial">
+    insert into tb_ad_material
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="adid != null">
+        adid,
+      </if>
+      <if test="materialid != null">
+        materialid,
+      </if>
+      <if test="orderindex != null">
+        orderindex,
+      </if>
+      <if test="loadstep != null">
+        loadstep,
+      </if>
+      <if test="displaytime != null">
+        displaytime,
+      </if>
+      <if test="musicpath != null">
+        musicpath,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adid != null">
+        #{adid,jdbcType=INTEGER},
+      </if>
+      <if test="materialid != null">
+        #{materialid,jdbcType=INTEGER},
+      </if>
+      <if test="orderindex != null">
+        #{orderindex,jdbcType=INTEGER},
+      </if>
+      <if test="loadstep != null">
+        #{loadstep,jdbcType=INTEGER},
+      </if>
+      <if test="displaytime != null">
+        #{displaytime,jdbcType=INTEGER},
+      </if>
+      <if test="musicpath != null">
+        #{musicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduation.project.dao.entity.AdMaterial">
+    update tb_ad_material
+    <set>
+      <if test="adid != null">
+        adid = #{adid,jdbcType=INTEGER},
+      </if>
+      <if test="materialid != null">
+        materialid = #{materialid,jdbcType=INTEGER},
+      </if>
+      <if test="orderindex != null">
+        orderindex = #{orderindex,jdbcType=INTEGER},
+      </if>
+      <if test="loadstep != null">
+        loadstep = #{loadstep,jdbcType=INTEGER},
+      </if>
+      <if test="displaytime != null">
+        displaytime = #{displaytime,jdbcType=INTEGER},
+      </if>
+      <if test="musicpath != null">
+        musicpath = #{musicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduation.project.dao.entity.AdMaterial">
+    update tb_ad_material
+    set adid = #{adid,jdbcType=INTEGER},
+      materialid = #{materialid,jdbcType=INTEGER},
+      orderindex = #{orderindex,jdbcType=INTEGER},
+      loadstep = #{loadstep,jdbcType=INTEGER},
+      displaytime = #{displaytime,jdbcType=INTEGER},
+      musicpath = #{musicpath,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

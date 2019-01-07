@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- mvn mybatis-generator:generate -->
+	<context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+		<!-- 生成的文件编码 -->
+		<property name="javaFileEncoding" value="utf-8" />
+
+		<!-- 注解 type="com.closet.ios.backend.MyCommentGenerator" -->
+		<commentGenerator>
+			<!-- <property name="suppressDate" value="true" /> -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!-- JDBC 连接信息 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://ilovemldu.mysql.rds.aliyuncs.com:3506/media_dev"
+			userId="media_dev" password="media_dev123">
+			<!-- 针对mysql数据库 -->
+			<property name="useInformationSchema" value="true"></property>
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator targetPackage="com.media.ops.backend.dao.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.media.ops.backend.dao.mapper" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+
+		<!-- 数据表 -->
+
+		<table tableName="sys_log" domainObjectName="Syslog"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false"></table>
+		<table tableName="tbad" domainObjectName="Ad"
+				enableCountByExample="false" enableUpdateByExample="false"
+				enableDeleteByExample="false" enableSelectByExample="false"
+				selectByExampleQueryId="false"></table>
+		<table tableName="tbaddelivery" domainObjectName="Addelivery"
+					enableCountByExample="false" enableUpdateByExample="false"
+					enableDeleteByExample="false" enableSelectByExample="false"
+					selectByExampleQueryId="false"></table>
+		<table tableName="tbadgroup" domainObjectName="Adgroup"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>
+		<table tableName="tbadmaterial" domainObjectName="Admaterial"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>				
+		<table tableName="tbarea" domainObjectName="Area"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>
+		<table tableName="tbbuilding" domainObjectName="Building"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>	
+		<table tableName="tbbuildingfloor" domainObjectName="Buildingfloor"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>	
+		<table tableName="tbcity" domainObjectName="City"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false">	</table>						
+		<table tableName="tbdevice" domainObjectName="Device"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbdevicebrand" domainObjectName="Devicebrand"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbdevicegroup" domainObjectName="Devicegroup"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbdevicespec" domainObjectName="Devicespec"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbfloordevice" domainObjectName="Floordevice"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbmaterial" domainObjectName="Material"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbmaterialgroup" domainObjectName="Materialgroup"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbuser" domainObjectName="User"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbplay" domainObjectName="Play"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbprovince" domainObjectName="Province"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>							
+		<table tableName="tbsyspara" domainObjectName="Syspara"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>
+		<table tableName="t_member" domainObjectName="Member"
+						enableCountByExample="false" enableUpdateByExample="false"
+						enableDeleteByExample="false" enableSelectByExample="false"
+						selectByExampleQueryId="false"></table>						
+        
+
+
+	</context>
+</generatorConfiguration>

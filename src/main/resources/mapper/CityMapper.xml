@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduation.project.dao.mapper.CityMapper">
+    <resultMap id="BaseResultMap" type="com.graduation.project.dao.entity.City">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="cityid" jdbcType="VARCHAR" property="cityid"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="father" jdbcType="VARCHAR" property="father"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, cityid, city, father
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_city
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectByCityId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_city
+        where cityid = #{cityId,jdbcType=INTEGER}
+    </select>
+    <select id="selectCitiesByProvinceId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from tb_city
+        where father= #{provinceId}
+    </select>
+</mapper>
