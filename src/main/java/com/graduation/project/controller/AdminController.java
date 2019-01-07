@@ -64,7 +64,7 @@ public class AdminController extends BaseController {
         return ResponseEntityUtil.success(admin);
     }
 
-    @ApiOperation(value = "查看1111管理员列表", notes = "查看管理员列表")
+    @ApiOperation(value = "查看管理员列表", notes = "查看管理员列表")
     @GetMapping(value = "selectList")
     public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adminService.selectList(pageNum, pageSize);
