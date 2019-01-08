@@ -41,16 +41,16 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public PageResponseBean selectList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Material> MaterialList = materialMapper.selectList();
+        List<Material> materialList = materialMapper.selectList();
 
         List<MaterialVO> materialVOList = Lists.newArrayList();
-        for (Material material : MaterialList) {
+        for (Material material : materialList) {
             String groupName = materialGroupMapper.selectByPrimaryKey(material.getGroupId()).getName();
             MaterialVO materialVO = new MaterialVO(material, groupName);
             materialVOList.add(materialVO);
         }
 
-        PageInfo pageInfo = new PageInfo(MaterialList);
+        PageInfo pageInfo = new PageInfo(materialList);
         pageInfo.setList(materialVOList);
         PageResponseBean page = new PageResponseBean<Material>(pageInfo);
         page.setCode(0);
@@ -61,21 +61,21 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public PageResponseBean selectListBySearch(String type, String name, String groupId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Material> MaterialList;
+        List<Material> materialList;
         if (groupId.equals("")) {
-            MaterialList = materialMapper.selectListByName(type, name);
+            materialList = materialMapper.selectListByName(type, name);
         } else {
-            MaterialList = materialMapper.selectListBySearch(type, name, groupId);
+            materialList = materialMapper.selectListBySearch(type, name, groupId);
         }
 
         List<MaterialVO> materialVOList = Lists.newArrayList();
-        for (Material material : MaterialList) {
+        for (Material material : materialList) {
             String groupName = materialGroupMapper.selectByPrimaryKey(material.getGroupId()).getName();
             MaterialVO materialVO = new MaterialVO(material, groupName);
             materialVOList.add(materialVO);
         }
 
-        PageInfo pageInfo = new PageInfo(MaterialList);
+        PageInfo pageInfo = new PageInfo(materialList);
         pageInfo.setList(materialVOList);
         PageResponseBean page = new PageResponseBean<Material>(pageInfo);
         page.setCode(0);
