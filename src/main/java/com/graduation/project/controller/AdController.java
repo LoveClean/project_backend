@@ -21,7 +21,7 @@ public class AdController extends BaseController {
     @Autowired
     private AdService adService;
 
-    @ApiOperation(value = "删除广告", notes = "根据主键删除")
+    @ApiOperation(value = "删除广告", notes = "1122根据主键删除")
     @DeleteMapping(value = "deleteByPrimaryKey")
     public ResponseEntity<Integer> deleteByPrimaryKey(@RequestParam Integer id, HttpServletRequest request) {
         return adService.deleteByPrimaryKey(id, super.getSessionUser(request).getTruename());
