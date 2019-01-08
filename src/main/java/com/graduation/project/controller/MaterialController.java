@@ -46,7 +46,7 @@ public class MaterialController extends BaseController {
         return MaterialService.selectList(pageNum, pageSize);
     }
 
-    @ApiOperation(value = "搜索素材列表", notes = "根据name和groupId查看素材列表")
+    @ApiOperation(value = "搜索素材列表", notes = "根据type、name和groupId查看素材列表")
     @GetMapping(value = "selectListBySearch")
     public PageResponseBean selectListBySearch(@RequestParam String type, @RequestParam String name, @RequestParam String groupId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return MaterialService.selectListBySearch(type, name, groupId, pageNum, pageSize);
