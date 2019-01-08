@@ -93,7 +93,7 @@ public class MapsServiceImpl implements MapsService {
     public PageResponseBean selectListBySearch(String name, String areaId, Integer pageNum, Integer pageSize, String level) {
         PageHelper.startPage(pageNum, pageSize);
         int number = level.length();
-        List<Maps> mapsList = mapsMapper.selectListBySearch(name, areaId,level, number);
+        List<Maps> mapsList = mapsMapper.selectListBySearch(name, areaId, level, number);
 
         List<MapsVO> mapsVOList = Lists.newArrayList();
         for (Maps maps : mapsList) {
@@ -114,15 +114,15 @@ public class MapsServiceImpl implements MapsService {
     public ResponseEntity<Integer> updateByPrimaryKeySelective(Maps record) {
         //校验
         Maps validResponse = mapsMapper.selectByName(record.getName());
-        if (validResponse != null) {
+        if (validResponse != null && validResponse.getId() != record.getId()) {
             return ResponseEntityUtil.fail("此网点名称已存在");
         }
         validResponse = mapsMapper.selectByAddress(record.getAddress());
-        if (validResponse != null) {
+        if (validResponse != null && validResponse.getId() != record.getId()) {
             return ResponseEntityUtil.fail("此网点地址已存在");
         }
         validResponse = mapsMapper.selectByPhone(record.getPhone());
-        if (validResponse != null) {
+        if (validResponse != null && validResponse.getId() != record.getId()) {
             return ResponseEntityUtil.fail("此手机号已被占用");
         }
 
