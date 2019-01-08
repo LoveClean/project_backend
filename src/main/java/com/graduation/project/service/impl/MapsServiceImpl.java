@@ -45,6 +45,10 @@ public class MapsServiceImpl implements MapsService {
         if (validResponse != null) {
             return ResponseEntityUtil.fail("此网点地址已存在");
         }
+        validResponse = mapsMapper.selectByPhone(record.getAddress());
+        if (validResponse != null) {
+            return ResponseEntityUtil.fail("此手机号已被占用");
+        }
 
         int resultCount = mapsMapper.insertSelective(record);
         if (resultCount == 0) {
@@ -116,6 +120,10 @@ public class MapsServiceImpl implements MapsService {
         validResponse = mapsMapper.selectByAddress(record.getAddress());
         if (validResponse != null) {
             return ResponseEntityUtil.fail("此网点地址已存在");
+        }
+        validResponse = mapsMapper.selectByPhone(record.getAddress());
+        if (validResponse != null) {
+            return ResponseEntityUtil.fail("此手机号已被占用");
         }
 
         int updateCount = mapsMapper.updateByPrimaryKeySelective(record);

@@ -59,7 +59,7 @@ public class MapsController extends BaseController {
         record.setId(bean.getId());
         record.setName(bean.getName());
         record.setPhone(bean.getPhone());
-        record.setPhone(bean.getAreaId());
+        record.setAreaId(bean.getAreaId());
         record.setAddress(bean.getAddress());
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return mapsService.updateByPrimaryKeySelective(record);

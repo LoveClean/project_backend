@@ -23,6 +23,9 @@ public interface MapsMapper {
     @Select("SELECT * FROM tb_maps WHERE address = #{address}")
     Maps selectByAddress(@Param("address") String address);
 
+    @Select("SELECT * FROM tb_maps WHERE phone = #{phone}")
+    Maps selectByPhone(@Param("phone") String phone);
+
     @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
     List<Maps> selectList(@Param("level") String level, @Param("number") Integer number);
 
