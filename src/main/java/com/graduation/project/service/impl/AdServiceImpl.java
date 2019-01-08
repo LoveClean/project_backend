@@ -116,7 +116,7 @@ public class AdServiceImpl implements AdService {
         }
 
         PageInfo pageInfo = new PageInfo(adList);
-        pageInfo.setList(adList);
+        pageInfo.setList(adVOList);
         PageResponseBean page = new PageResponseBean<Ad>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);
