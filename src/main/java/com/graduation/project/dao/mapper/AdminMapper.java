@@ -21,8 +21,8 @@ public interface AdminMapper {
     @Select("SELECT * FROM tb_admin WHERE phone = #{phone}")
     Admin selectByPhone(@Param("phone") String phone);
 
-    @Select("SELECT * FROM tb_admin WHERE del_flag = 0 ORDER BY create_date DESC")
-    List<Admin> selectList();
+    @Select("SELECT * FROM tb_admin WHERE del_flag = 0 AND left(level,#{number}) = #{level} ORDER BY create_date DESC")
+    List<Admin> selectList(@Param("level") String level, @Param("number") Integer number);
 
     @Select("SELECT * FROM tb_admin WHERE del_flag = 0 AND level LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
     List<Admin> selectListByLevel(@Param("level") String level);

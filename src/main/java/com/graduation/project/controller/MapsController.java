@@ -42,14 +42,14 @@ public class MapsController extends BaseController {
 
     @ApiOperation(value = "查看网点列表", notes = "查看网点列表")
     @GetMapping(value = "selectList")
-    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return mapsService.selectList(pageNum, pageSize);
+    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize, HttpServletRequest request) {
+        return mapsService.selectList(pageNum, pageSize, super.getSessionUser(request).getLevel());
     }
 
     @ApiOperation(value = "搜索网点列表", notes = "根据name和areaId查看网点列表")
     @GetMapping(value = "selectListBySearch")
-    public PageResponseBean selectListBySearch(@RequestParam String name, @RequestParam String areaId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return mapsService.selectListBySearch(name, areaId, pageNum, pageSize);
+    public PageResponseBean selectListBySearch(@RequestParam String name, @RequestParam String areaId, @RequestParam Integer pageNum, @RequestParam Integer pageSize, HttpServletRequest request) {
+        return mapsService.selectListBySearch(name, areaId, pageNum, pageSize, super.getSessionUser(request).getLevel());
     }
 
     @ApiOperation(value = "修改网点", notes = "修改网点")

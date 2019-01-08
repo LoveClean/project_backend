@@ -66,8 +66,8 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "查看管理员列表", notes = "查看管理员列表")
     @GetMapping(value = "selectList")
-    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return adminService.selectList(pageNum, pageSize);
+    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize, HttpServletRequest request) {
+        return adminService.selectList(pageNum, pageSize, super.getSessionUser(request).getLevel());
     }
 
     @ApiOperation(value = "搜索管理员列表", notes = "根据level查看管理员列表")

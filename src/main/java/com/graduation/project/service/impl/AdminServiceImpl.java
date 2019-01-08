@@ -66,9 +66,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageResponseBean selectList(Integer pageNum, Integer pageSize) {
+    public PageResponseBean selectList(Integer pageNum, Integer pageSize, String level) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Admin> adminList = adminMapper.selectList();
+        int number = level.length();
+        List<Admin> adminList = adminMapper.selectList(level, number);
 
         List<AdminVO> adminVOList = Lists.newArrayList();
         for (Admin admin : adminList) {

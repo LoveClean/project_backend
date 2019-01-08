@@ -23,11 +23,11 @@ public interface MapsMapper {
     @Select("SELECT * FROM tb_maps WHERE address = #{address}")
     Maps selectByAddress(@Param("address") String address);
 
-    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 ORDER BY create_date DESC")
-    List<Maps> selectList();
+    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
+    List<Maps> selectList(@Param("level") String level, @Param("number") Integer number);
 
-    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND name LIKE CONCAT('%',#{name},'%') AND area_id LIKE CONCAT('%',#{areaId},'%') ORDER BY create_date DESC")
-    List<Maps> selectListBySearch(@Param("name") String name, @Param("areaId") String areaId);
+    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND name LIKE CONCAT('%',#{name},'%') AND area_id LIKE CONCAT('%',#{areaId},'%') AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
+    List<Maps> selectListBySearch(@Param("name") String name, @Param("areaId") String areaId,@Param("level") String level, @Param("number") Integer number);
 
     int updateByPrimaryKeySelective(Maps record);
 

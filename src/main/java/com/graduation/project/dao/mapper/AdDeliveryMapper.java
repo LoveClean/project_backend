@@ -17,8 +17,8 @@ public interface AdDeliveryMapper {
 
     AdDelivery selectByPrimaryKey(Integer id);
 
-    @Select("SELECT * FROM tb_ad_delivery WHERE del_flag = 0 ORDER BY create_date DESC")
-    List<AdDelivery> selectList();
+    @Select("SELECT * FROM tb_ad_delivery WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
+    List<AdDelivery> selectList(@Param("level") String level, @Param("number") Integer number);
 
     int updateByPrimaryKeySelective(AdDelivery record);
 

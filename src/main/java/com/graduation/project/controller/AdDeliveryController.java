@@ -42,8 +42,8 @@ public class AdDeliveryController extends BaseController {
 
     @ApiOperation(value = "查看广告投放列表", notes = "查看广告投放列表")
     @GetMapping(value = "selectList")
-    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return adDeliveryService.selectList(pageNum, pageSize);
+    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize, HttpServletRequest request) {
+        return adDeliveryService.selectList(pageNum, pageSize, super.getSessionUser(request).getLevel());
     }
 
     @ApiOperation(value = "修改广告投放", notes = "修改广告投放")

@@ -11,7 +11,7 @@ public interface AdDeliveryService {
 
     ResponseEntity<AdDelivery> selectByPrimaryKey(Integer id);
 
-    PageResponseBean selectList(Integer pageNum, Integer pageSize);
+    PageResponseBean selectList(Integer pageNum, Integer pageSize, String level);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(AdDelivery record);
 }

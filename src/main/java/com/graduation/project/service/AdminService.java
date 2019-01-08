@@ -11,7 +11,7 @@ public interface AdminService {
 
     ResponseEntity<Admin> selectByPrimaryKey(Integer id);
 
-    PageResponseBean selectList(Integer pageNum, Integer pageSize);
+    PageResponseBean selectList(Integer pageNum, Integer pageSize, String level);
 
     PageResponseBean selectListByLevel(String level, Integer pageNum, Integer pageSize);
 

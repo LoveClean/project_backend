@@ -53,15 +53,16 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
     }
 
     @Override
-    public PageResponseBean selectList(Integer pageNum, Integer pageSize) {
+    public PageResponseBean selectList(Integer pageNum, Integer pageSize, String level) {
         PageHelper.startPage(pageNum, pageSize);
-        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectList();
+        int number = level.length();
+        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectList(level, number);
 
 
         List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
         for (AdDelivery adDelivery : adDeliveryList) {
             ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(adDelivery.getAreaId());
-            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress,"暂时不做");
+            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, "暂时不做");
             adDeliveryVOList.add(adDeliveryVO);
         }
 

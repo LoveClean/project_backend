@@ -65,9 +65,10 @@ public class MapsServiceImpl implements MapsService {
     }
 
     @Override
-    public PageResponseBean selectList(Integer pageNum, Integer pageSize) {
+    public PageResponseBean selectList(Integer pageNum, Integer pageSize, String level) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Maps> mapsList = mapsMapper.selectList();
+        int number = level.length();
+        List<Maps> mapsList = mapsMapper.selectList(level, number);
 
         List<MapsVO> mapsVOList = Lists.newArrayList();
         for (Maps maps : mapsList) {
@@ -85,9 +86,10 @@ public class MapsServiceImpl implements MapsService {
     }
 
     @Override
-    public PageResponseBean selectListBySearch(String name, String areaId, Integer pageNum, Integer pageSize) {
+    public PageResponseBean selectListBySearch(String name, String areaId, Integer pageNum, Integer pageSize, String level) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Maps> mapsList = mapsMapper.selectListBySearch(name, areaId);
+        int number = level.length();
+        List<Maps> mapsList = mapsMapper.selectListBySearch(name, areaId,level, number);
         PageInfo pageInfo = new PageInfo(mapsList);
         pageInfo.setList(mapsList);
 

@@ -11,9 +11,9 @@ public interface MapsService {
 
     ResponseEntity<Maps> selectByPrimaryKey(Integer id);
 
-    PageResponseBean selectList(Integer pageNum, Integer pageSize);
+    PageResponseBean selectList(Integer pageNum, Integer pageSize, String level);
 
-    PageResponseBean selectListBySearch(String name, String areaId, Integer pageNum, Integer pageSize);
+    PageResponseBean selectListBySearch(String name, String areaId, Integer pageNum, Integer pageSize, String level);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(Maps record);
 }
