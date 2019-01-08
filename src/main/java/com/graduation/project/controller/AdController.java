@@ -46,7 +46,7 @@ public class AdController extends BaseController {
         return adService.selectList(pageNum, pageSize);
     }
 
-    @ApiOperation(value = "搜索广告列表", notes = "根据name和groupid查看广告列表")
+    @ApiOperation(value = "搜索广告列表", notes = "111根据name和groupid查看广告列表")
     @GetMapping(value = "selectListBySearch")
     public PageResponseBean selectListBySearch(@RequestParam String name, @RequestParam String groupid, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         return adService.selectListBySearch(name, groupid, pageNum, pageSize);
