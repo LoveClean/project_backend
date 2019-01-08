@@ -90,9 +90,16 @@ public class MapsServiceImpl implements MapsService {
         PageHelper.startPage(pageNum, pageSize);
         int number = level.length();
         List<Maps> mapsList = mapsMapper.selectListBySearch(name, areaId,level, number);
-        PageInfo pageInfo = new PageInfo(mapsList);
-        pageInfo.setList(mapsList);
 
+        List<MapsVO> mapsVOList = Lists.newArrayList();
+        for (Maps maps : mapsList) {
+            ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(maps.getAreaId());
+            MapsVO mapsVO = new MapsVO(maps, areaAddress);
+            mapsVOList.add(mapsVO);
+        }
+
+        PageInfo pageInfo = new PageInfo(mapsList);
+        pageInfo.setList(mapsVOList);
         PageResponseBean page = new PageResponseBean<Maps>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);
