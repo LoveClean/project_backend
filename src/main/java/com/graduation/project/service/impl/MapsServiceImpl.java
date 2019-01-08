@@ -45,7 +45,7 @@ public class MapsServiceImpl implements MapsService {
         if (validResponse != null) {
             return ResponseEntityUtil.fail("此网点地址已存在");
         }
-        validResponse = mapsMapper.selectByPhone(record.getAddress());
+        validResponse = mapsMapper.selectByPhone(record.getPhone());
         if (validResponse != null) {
             return ResponseEntityUtil.fail("此手机号已被占用");
         }
@@ -121,7 +121,7 @@ public class MapsServiceImpl implements MapsService {
         if (validResponse != null) {
             return ResponseEntityUtil.fail("此网点地址已存在");
         }
-        validResponse = mapsMapper.selectByPhone(record.getAddress());
+        validResponse = mapsMapper.selectByPhone(record.getPhone());
         if (validResponse != null) {
             return ResponseEntityUtil.fail("此手机号已被占用");
         }
