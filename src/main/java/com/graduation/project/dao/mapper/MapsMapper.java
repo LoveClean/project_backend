@@ -17,13 +17,13 @@ public interface MapsMapper {
 
     Maps selectByPrimaryKey(Integer id);
 
-    @Select("SELECT * FROM tb_maps WHERE name = #{name}")
+    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND name = #{name}")
     Maps selectByName(@Param("name") String name);
 
-    @Select("SELECT * FROM tb_maps WHERE address = #{address}")
+    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND address = #{address}")
     Maps selectByAddress(@Param("address") String address);
 
-    @Select("SELECT * FROM tb_maps WHERE phone = #{phone}")
+    @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND phone = #{phone}")
     Maps selectByPhone(@Param("phone") String phone);
 
     @Select("SELECT * FROM tb_maps WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
