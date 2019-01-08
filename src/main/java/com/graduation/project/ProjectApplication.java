@@ -29,7 +29,7 @@ import static springfox.documentation.schema.AlternateTypeRules.newRule;
 @EnableSwagger2
 @EnableScheduling
 public class ProjectApplication {
-    // 玉莲帮帮主陈庆杰55543543
+
     public static void main(String[] args) {
         SpringApplication.run(ProjectApplication.class, args);
     }
@@ -39,7 +39,6 @@ public class ProjectApplication {
 
     @Resource
     private AppConfig appConfig;
-
     /**
      * 生成API文档的入口
      */
@@ -76,7 +75,7 @@ public class ProjectApplication {
 
     private ApiInfo apiInfo() {
         //Contact contact = new Contact("", "", "");
-        return new ApiInfo("优客工场网站端操作接口", "优客工场网站端操作接口WEB/APP", "1.0.0", "", "", "", "");
+        return new ApiInfo("", "", "1.0.0", "", "", "", "");
 
 
     }
