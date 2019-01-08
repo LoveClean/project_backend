@@ -91,6 +91,7 @@ public class AdminServiceImpl implements AdminService {
             AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
             adminVOList.add(adminVO);
         }
+
         PageInfo pageInfo = new PageInfo(adminList);
         pageInfo.setList(adminVOList);
         PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
@@ -100,12 +101,34 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageResponseBean selectListByLevel(String level, Integer pageNum, Integer pageSize) {
+    public PageResponseBean selectListByLevel(String level, Integer pageNum, Integer pageSize, String level0) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Admin> admins = adminMapper.selectListByLevel(level);
-        PageInfo pageInfo = new PageInfo(admins);
-        pageInfo.setList(admins);
+        int number = level.length();
+        List<Admin> adminList = adminMapper.selectListByLevel(level, level0, number);
 
+        List<AdminVO> adminVOList = Lists.newArrayList();
+        for (Admin admin : adminList) {
+            ResponseEntity levelAddress;
+            String levelNmae = "未知管理员";
+            if (admin.getLevel().length() == 2) {
+                levelAddress = cityService.selectByProvinceId(admin.getLevel() + "0000");
+                levelNmae = "省级管理员";
+            } else if (admin.getLevel().length() == 4) {
+                levelAddress = cityService.selectByCityId(admin.getLevel() + "00");
+                levelNmae = "市级管理员";
+            } else if (admin.getLevel().length() == 6) {
+                levelAddress = cityService.selectByAreaId(admin.getLevel());
+                levelNmae = "区域管理员";
+            } else {
+                levelAddress = cityService.selectByAreaId(admin.getLevel());
+                levelNmae = "超级管理员";
+            }
+            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
+            adminVOList.add(adminVO);
+        }
+
+        PageInfo pageInfo = new PageInfo(adminList);
+        pageInfo.setList(adminList);
         PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);

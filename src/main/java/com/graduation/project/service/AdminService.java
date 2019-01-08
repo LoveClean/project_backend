@@ -13,7 +13,7 @@ public interface AdminService {
 
     PageResponseBean selectList(Integer pageNum, Integer pageSize, String level);
 
-    PageResponseBean selectListByLevel(String level, Integer pageNum, Integer pageSize);
+    PageResponseBean selectListByLevel(String level, Integer pageNum, Integer pageSize, String level0);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(Admin record);
 
