@@ -92,15 +92,31 @@ public class AdServiceImpl implements AdService {
     @Override
     public PageResponseBean selectListBySearch(String name, String groupid, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Ad> mapsList;
+        List<Ad> adList;
         if (groupid.equals("")) {
-            mapsList = adMapper.selectListByName(name);
+            adList = adMapper.selectListByName(name);
         } else {
-            mapsList = adMapper.selectListBySearch(name, groupid);
+            adList = adMapper.selectListBySearch(name, groupid);
         }
-        PageInfo pageInfo = new PageInfo(mapsList);
-        pageInfo.setList(mapsList);
 
+        List<AdVO> adVOList = Lists.newArrayList();
+        for (Ad ad : adList) {
+            AdGroup adGroup = adGroupMapper.selectByPrimaryKey(ad.getGroupid());
+            List<AdMaterial> adMaterialList = adMaterialMapper.selectListBySearch(ad.getId());
+
+            List adMaterialVOList = Lists.newArrayList();
+            for (AdMaterial adMaterial : adMaterialList) {
+                Material material = materialMapper.selectByPrimaryKey(adMaterial.getMaterialid());
+                AdMaterialVO adMaterialVO = new AdMaterialVO(adMaterial, material);
+                adMaterialVOList.add(adMaterialVO);
+            }
+
+            AdVO adVO = new AdVO(ad, adGroup, adMaterialVOList);
+            adVOList.add(adVO);
+        }
+
+        PageInfo pageInfo = new PageInfo(adList);
+        pageInfo.setList(adList);
         PageResponseBean page = new PageResponseBean<Ad>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);
