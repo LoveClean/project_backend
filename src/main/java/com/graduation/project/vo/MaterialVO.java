@@ -8,18 +8,18 @@ public class MaterialVO {
     private String type;
     private Integer groupId;
     private String path;
-    private String groupNmae;
+    private String groupName;
 
     public MaterialVO() {
     }
 
-    public MaterialVO(Material material, String groupNmae) {
+    public MaterialVO(Material material, String groupName) {
         this.id = material.getId();
         this.name = material.getName();
         this.type = material.getType();
         this.groupId = material.getGroupId();
         this.path = material.getPath();
-        this.groupNmae = groupNmae;
+        this.groupName = groupName;
     }
 
     public Integer getId() {
@@ -62,11 +62,11 @@ public class MaterialVO {
         this.path = path;
     }
 
-    public String getGroupNmae() {
-        return groupNmae;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setGroupNmae(String groupNmae) {
-        this.groupNmae = groupNmae;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 }

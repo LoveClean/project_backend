@@ -45,8 +45,8 @@ public class MaterialServiceImpl implements MaterialService {
 
         List<MaterialVO> materialVOList = Lists.newArrayList();
         for (Material material : MaterialList) {
-            String groupNmae = materialGroupMapper.selectByPrimaryKey(material.getGroupId()).getName();
-            MaterialVO materialVO = new MaterialVO(material, groupNmae);
+            String groupName = materialGroupMapper.selectByPrimaryKey(material.getGroupId()).getName();
+            MaterialVO materialVO = new MaterialVO(material, groupName);
             materialVOList.add(materialVO);
         }
 
@@ -70,8 +70,8 @@ public class MaterialServiceImpl implements MaterialService {
 
         List<MaterialVO> materialVOList = Lists.newArrayList();
         for (Material material : MaterialList) {
-            String groupNmae = materialGroupMapper.selectByPrimaryKey(material.getGroupId()).getName();
-            MaterialVO materialVO = new MaterialVO(material, groupNmae);
+            String groupName = materialGroupMapper.selectByPrimaryKey(material.getGroupId()).getName();
+            MaterialVO materialVO = new MaterialVO(material, groupName);
             materialVOList.add(materialVO);
         }
 
