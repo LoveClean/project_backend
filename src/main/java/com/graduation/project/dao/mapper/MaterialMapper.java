@@ -20,11 +20,11 @@ public interface MaterialMapper {
     @Select("SELECT * FROM tb_material WHERE del_flag = 0 ORDER BY create_date DESC")
     List<Material> selectList();
 
-    @Select("SELECT * FROM tb_material WHERE del_flag = 0 AND name LIKE CONCAT('%',#{name},'%') AND group_id = #{groupId} ORDER BY create_date DESC")
-    List<Material> selectListBySearch(@Param("name") String name, @Param("groupId") String groupId);
+    @Select("SELECT * FROM tb_material WHERE del_flag = 0 AND type LIKE CONCAT('%',#{type},'%') AND name LIKE CONCAT('%',#{name},'%') AND group_id = #{groupId} ORDER BY create_date DESC")
+    List<Material> selectListBySearch(@Param("type") String type, @Param("name") String name, @Param("groupId") String groupId);
 
-    @Select("SELECT * FROM tb_material WHERE del_flag = 0 AND name LIKE CONCAT('%',#{name},'%') ORDER BY create_date DESC")
-    List<Material> selectListByName(@Param("name") String name);
+    @Select("SELECT * FROM tb_material WHERE del_flag = 0 AND type LIKE CONCAT('%',#{type},'%') AND name LIKE CONCAT('%',#{name},'%') ORDER BY create_date DESC")
+    List<Material> selectListByName(@Param("type") String type, @Param("name") String name);
 
     int updateByPrimaryKeySelective(Material record);
 

@@ -48,8 +48,8 @@ public class MaterialController extends BaseController {
 
     @ApiOperation(value = "搜索素材列表", notes = "根据name和groupId查看素材列表")
     @GetMapping(value = "selectListBySearch")
-    public PageResponseBean selectListBySearch(@RequestParam String name, @RequestParam String groupId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
-        return MaterialService.selectListBySearch(name, groupId, pageNum, pageSize);
+    public PageResponseBean selectListBySearch(@RequestParam String type, @RequestParam String name, @RequestParam String groupId, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        return MaterialService.selectListBySearch(type, name, groupId, pageNum, pageSize);
     }
 
     @ApiOperation(value = "修改素材", notes = "修改素材")

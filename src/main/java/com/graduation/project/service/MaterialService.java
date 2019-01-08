@@ -13,7 +13,7 @@ public interface MaterialService {
 
     PageResponseBean selectList(Integer pageNum, Integer pageSize);
 
-    PageResponseBean selectListBySearch(String name, String groupId, Integer pageNum, Integer pageSize);
+    PageResponseBean selectListBySearch(String type, String name, String groupId, Integer pageNum, Integer pageSize);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(Material record);
 }

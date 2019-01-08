@@ -47,13 +47,13 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public PageResponseBean selectListBySearch(String name, String groupId, Integer pageNum, Integer pageSize) {
+    public PageResponseBean selectListBySearch(String type, String name, String groupId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Material> MaterialList ;
+        List<Material> MaterialList;
         if (groupId.equals("")) {
-            MaterialList = materialMapper.selectListByName(name);
+            MaterialList = materialMapper.selectListByName(type, name);
         } else {
-            MaterialList = materialMapper.selectListBySearch(name, groupId);
+            MaterialList = materialMapper.selectListBySearch(type, name, groupId);
         }
         PageInfo pageInfo = new PageInfo(MaterialList);
         pageInfo.setList(MaterialList);
