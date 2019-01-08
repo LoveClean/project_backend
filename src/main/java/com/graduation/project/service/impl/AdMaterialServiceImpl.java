@@ -37,6 +37,19 @@ public class AdMaterialServiceImpl implements AdMaterialService {
     }
 
     @Override
+    public ResponseEntity<Integer> insertSelectiveList(List<AdMaterial> records) {
+        int resultCounts = 0;
+        for (AdMaterial record : records) {
+            int resultCount = adMaterialMapper.insertSelective(record);
+            if (resultCount == 0) {
+                return ResponseEntityUtil.fail("广告素材批量添加失败");
+            }
+            resultCounts += resultCount;
+        }
+        return ResponseEntityUtil.success(resultCounts);
+    }
+
+    @Override
     public ResponseEntity<AdMaterial> selectByPrimaryKey(Integer id) {
         AdMaterial validResponse = adMaterialMapper.selectByPrimaryKey(id);
         if (validResponse == null) {
@@ -65,5 +78,18 @@ public class AdMaterialServiceImpl implements AdMaterialService {
             return ResponseEntityUtil.fail("广告素材更新失败");
         }
         return ResponseEntityUtil.success(updateCount);
+    }
+
+    @Override
+    public ResponseEntity<Integer> updateByPrimaryKeySelectiveList(List<AdMaterial> records) {
+        int updateCounts = 0;
+        for (AdMaterial record : records) {
+            int updateCount = adMaterialMapper.updateByPrimaryKeySelective(record);
+            if (updateCount == 0) {
+                return ResponseEntityUtil.fail("广告素材批量更新失败");
+            }
+            updateCounts += updateCount;
+        }
+        return ResponseEntityUtil.success(updateCounts);
     }
 }

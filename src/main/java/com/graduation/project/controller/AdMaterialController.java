@@ -1,5 +1,6 @@
 package com.graduation.project.controller;
 
+import com.google.common.collect.Lists;
 import com.graduation.project.controller.request.AdMaterialInsertSelective;
 import com.graduation.project.controller.request.AdMaterialUpdateByPrimaryKeySelective;
 import com.graduation.project.controller.response.PageResponseBean;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(description = "广告素材操作接口", produces = "application/json")
 @RestController
@@ -32,6 +34,17 @@ public class AdMaterialController extends BaseController {
     public ResponseEntity<Integer> insertSelective(@Valid @RequestBody AdMaterialInsertSelective bean, HttpServletRequest request) {
         AdMaterial record = new AdMaterial(bean.getAdid(), bean.getMaterialid(), bean.getOrderindex(), bean.getLoadstep(), bean.getDisplaytime(), bean.getMusicpath(), super.getSessionUser(request).getTruename());
         return adMaterialService.insertSelective(record);
+    }
+
+    @ApiOperation(value = "批量添加广告素材", notes = "批量添加广告素材")
+    @PostMapping(value = "insertSelectiveList")
+    public ResponseEntity<Integer> insertSelectiveList(@Valid @RequestBody List<AdMaterialInsertSelective> beans, HttpServletRequest request) {
+        List<AdMaterial> records = Lists.newArrayList();
+        for (AdMaterialInsertSelective bean : beans) {
+            AdMaterial record = new AdMaterial(bean.getAdid(), bean.getMaterialid(), bean.getOrderindex(), bean.getLoadstep(), bean.getDisplaytime(), bean.getMusicpath(), super.getSessionUser(request).getTruename());
+            records.add(record);
+        }
+        return adMaterialService.insertSelectiveList(records);
     }
 
     @ApiOperation(value = "查看广告素材", notes = "根据主键查看广告素材")
@@ -59,5 +72,24 @@ public class AdMaterialController extends BaseController {
         record.setMusicpath(bean.getMusicpath());
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return adMaterialService.updateByPrimaryKeySelective(record);
+    }
+
+    @ApiOperation(value = "批量修改广告素材", notes = "批量修改广告素材")
+    @PutMapping(value = "updateByPrimaryKeySelectiveList")
+    public ResponseEntity<Integer> updateByPrimaryKeySelectiveList(@Valid @RequestBody List<AdMaterialUpdateByPrimaryKeySelective> beans, HttpServletRequest request) {
+        List<AdMaterial> records = Lists.newArrayList();
+        for (AdMaterialUpdateByPrimaryKeySelective bean : beans) {
+            AdMaterial record = new AdMaterial();
+            record.setId(bean.getId());
+            record.setAdid(bean.getAdid());
+            record.setMaterialid(bean.getMaterialid());
+            record.setOrderindex(bean.getOrderindex());
+            record.setLoadstep(bean.getLoadstep());
+            record.setDisplaytime(bean.getDisplaytime());
+            record.setMusicpath(bean.getMusicpath());
+            record.setUpdateBy(super.getSessionUser(request).getTruename());
+            records.add(record);
+        }
+        return adMaterialService.updateByPrimaryKeySelectiveList(records);
     }
 }
