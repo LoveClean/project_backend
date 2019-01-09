@@ -34,16 +34,15 @@ public class CrossDomainFilter extends OncePerRequestFilter {
             // 重要：clientIp不能为*，否则session无法传递到服务器端.
             response.addHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
             response.addHeader("Access-Control-Allow-Credentials", "true");
-
+            response.setHeader("Access-Control-Max-Age", "3600");
             /**
              * 处理 Preflight 情况下的额外返回数据:
              * https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#
              * Preflighted_requests 需要确认 Preflight 是有效的请求，而不是直接进行的OPTIONS操作.
              */
             response.addHeader("Access-Control-Allow-Methods", "DELETE,PUT,GET, POST, OPTIONS");
-            response.addHeader("Access-Control-Allow-Headers",
-                    "X-Requested-With, X-Access-Token, " + Const.ACCESS_TOKEN_HEADER_NAME +
-                            ", X-Upload-Auth-Token, Origin, Content-Type, Cookie," + Const.REQUEST_SIDE_HEAD_NAME);
+            response.addHeader("Access-Control-Allow-Headers", Const.ACCESS_TOKEN_HEADER_NAME +
+                            ", Origin, Content-Type, Cookie," + Const.REQUEST_SIDE_HEAD_NAME);
         }
         if (request.getMethod().equals("OPTIONS")) {
             return;
