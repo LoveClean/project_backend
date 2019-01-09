@@ -17,6 +17,8 @@ public interface AdMaterialService {
 
     PageResponseBean selectList(Integer pageNum, Integer pageSize);
 
+    PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, Integer adid);
+
     ResponseEntity<Integer> updateByPrimaryKeySelective(AdMaterial record);
 
     ResponseEntity<Integer> updateByPrimaryKeySelectiveList(List<AdMaterial> records);

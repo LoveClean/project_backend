@@ -59,6 +59,12 @@ public class AdMaterialController extends BaseController {
         return adMaterialService.selectList(pageNum, pageSize);
     }
 
+    @ApiOperation(value = "搜索广告素材列表", notes = "搜索广告素材列表")
+    @GetMapping(value = "selectListBySearch")
+    public PageResponseBean selectListBySearch(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam Integer adid) {
+        return adMaterialService.selectListBySearch(pageNum, pageSize, adid);
+    }
+
     @ApiOperation(value = "修改广告素材", notes = "修改广告素材")
     @PutMapping(value = "updateByPrimaryKeySelective")
     public ResponseEntity<Integer> updateByPrimaryKeySelective(@Valid @RequestBody AdMaterialUpdateByPrimaryKeySelective bean, HttpServletRequest request) {

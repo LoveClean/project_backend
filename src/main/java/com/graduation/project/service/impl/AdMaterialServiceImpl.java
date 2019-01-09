@@ -61,10 +61,21 @@ public class AdMaterialServiceImpl implements AdMaterialService {
     @Override
     public PageResponseBean selectList(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<AdMaterial> mapsList = adMaterialMapper.selectList();
-        PageInfo pageInfo = new PageInfo(mapsList);
-        pageInfo.setList(mapsList);
+        List<AdMaterial> adMaterialList = adMaterialMapper.selectList();
+        PageInfo pageInfo = new PageInfo(adMaterialList);
+        pageInfo.setList(adMaterialList);
+        PageResponseBean page = new PageResponseBean<AdMaterialMapper>(pageInfo);
+        page.setCode(0);
+        page.setHttpStatus(200);
+        return page;
+    }
 
+    @Override
+    public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, Integer adid) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<AdMaterial> adMaterialList = adMaterialMapper.selectListBySearch(adid);
+        PageInfo pageInfo = new PageInfo(adMaterialList);
+        pageInfo.setList(adMaterialList);
         PageResponseBean page = new PageResponseBean<AdMaterialMapper>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);
