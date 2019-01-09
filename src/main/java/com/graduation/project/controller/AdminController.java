@@ -37,16 +37,16 @@ public class AdminController extends BaseController {
     @PostMapping(value = "insertSelective")
     public ResponseEntity<Integer> insertSelective(@Valid @RequestBody AdminInsertSelective bean,
                                                    HttpServletRequest request) {
-        Admin admin = new Admin(bean.getTrueName(), bean.getPassword(),
-                bean.getPhone(), bean.getLevel(), super.getSessionUser(request).getTruename());
         // 校验身份等级，防止越权
         String level = super.getSessionUser(request).getLevel();
         int levelLength = level.length();
-        if (!admin.getLevel().substring(0, levelLength).equals(level)) {
+        if (!bean.getLevel().substring(0, levelLength).equals(level)) {
             return ResponseEntityUtil.fail("身份越权");
         }
 
-        ResponseEntity response = adminService.insertSelective(admin);
+        Admin record = new Admin(bean.getTrueName(), bean.getPassword(),
+                bean.getPhone(), bean.getLevel(), super.getSessionUser(request).getTruename());
+        ResponseEntity response = adminService.insertSelective(record);
         if (response.isSuccess()) {
             //注册成功，发送短信，告知初始密码
             smsService.send(bean.getPhone(), "您已成为系统的" + bean.getLevel() + "管理员,初始密码为：" + bean.getPassword());
@@ -85,15 +85,20 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "修改管理员", notes = "修改管理员")
     @PutMapping(value = "updateByPrimaryKeySelective")
     public ResponseEntity<Integer> updateByPrimaryKeySelective(@Valid @RequestBody AdminUpdateByPrimaryKeySelective bean, HttpServletRequest request) {
-        Admin record = new Admin();
+        // 校验身份等级，防止越权
+        String level = super.getSessionUser(request).getLevel();
+        int levelLength = level.length();
+        if (!bean.getLevel().substring(0, levelLength).equals(level)) {
+            return ResponseEntityUtil.fail("身份越权");
+        }
 
+        Admin record = new Admin();
         record.setId(bean.getId());
         record.setTruename(bean.getTrueName());
         record.setPhone(bean.getPhone());
         record.setPassword(bean.getPassword());
         record.setLevel(bean.getLevel());
         record.setUpdateBy(super.getSessionUser(request).getTruename());
-
         return adminService.updateByPrimaryKeySelective(record);
     }
 
