@@ -39,6 +39,12 @@ public class AdminController extends BaseController {
                                                    HttpServletRequest request) {
         Admin admin = new Admin(bean.getTrueName(), bean.getPassword(),
                 bean.getPhone(), bean.getLevel(), super.getSessionUser(request).getTruename());
+        // 校验身份等级，防止越权
+        String level = super.getSessionUser(request).getLevel();
+        int levelLength = level.length();
+        if (!admin.getLevel().substring(0, levelLength).equals(level)) {
+            return ResponseEntityUtil.fail("身份越权");
+        }
 
         ResponseEntity response = adminService.insertSelective(admin);
         if (response.isSuccess()) {
