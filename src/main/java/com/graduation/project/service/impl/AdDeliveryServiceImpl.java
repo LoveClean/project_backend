@@ -58,7 +58,6 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
         int number = level.length();
         List<AdDelivery> adDeliveryList = adDeliveryMapper.selectList(level, number);
 
-
         List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
         for (AdDelivery adDelivery : adDeliveryList) {
             ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(adDelivery.getAreaId());

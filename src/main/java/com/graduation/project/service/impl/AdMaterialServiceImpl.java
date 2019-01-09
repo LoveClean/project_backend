@@ -2,12 +2,16 @@ package com.graduation.project.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.graduation.project.controller.response.PageResponseBean;
 import com.graduation.project.dao.entity.AdMaterial;
+import com.graduation.project.dao.entity.Material;
 import com.graduation.project.dao.mapper.AdMaterialMapper;
+import com.graduation.project.dao.mapper.MaterialMapper;
 import com.graduation.project.service.AdMaterialService;
 import com.graduation.project.util.ResponseEntity;
 import com.graduation.project.util.ResponseEntityUtil;
+import com.graduation.project.vo.AdMaterialVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,6 +21,8 @@ import java.util.List;
 public class AdMaterialServiceImpl implements AdMaterialService {
     @Resource
     private AdMaterialMapper adMaterialMapper;
+    @Resource
+    private MaterialMapper materialMapper;
 
     @Override
     public ResponseEntity<Integer> deleteByPrimaryKey(Integer id, String updateBy) {
@@ -74,8 +80,16 @@ public class AdMaterialServiceImpl implements AdMaterialService {
     public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, Integer adid) {
         PageHelper.startPage(pageNum, pageSize);
         List<AdMaterial> adMaterialList = adMaterialMapper.selectListBySearch(adid);
+
+        List<AdMaterialVO> adMaterialVOList = Lists.newArrayList();
+        for (AdMaterial adMaterial : adMaterialList) {
+            Material material = materialMapper.selectByPrimaryKey(adMaterial.getMaterialid());
+            AdMaterialVO adMaterialVO = new AdMaterialVO(adMaterial, material);
+            adMaterialVOList.add(adMaterialVO);
+        }
+
         PageInfo pageInfo = new PageInfo(adMaterialList);
-        pageInfo.setList(adMaterialList);
+        pageInfo.setList(adMaterialVOList);
         PageResponseBean page = new PageResponseBean<AdMaterialMapper>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);
