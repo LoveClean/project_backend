@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.graduation.project.controller.response.PageResponseBean;
 import com.graduation.project.dao.entity.AdDelivery;
 import com.graduation.project.dao.mapper.AdDeliveryMapper;
+import com.graduation.project.dao.mapper.MapsMapper;
 import com.graduation.project.service.AdDeliveryService;
 import com.graduation.project.service.CityService;
 import com.graduation.project.util.ResponseEntity;
@@ -16,12 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class AdDeliveryServiceImpl implements AdDeliveryService {
     @Resource
     private AdDeliveryMapper adDeliveryMapper;
+    @Resource
+    private MapsMapper mapsMapper;
     @Autowired
     private CityService cityService;
 
@@ -61,7 +65,30 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
         List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
         for (AdDelivery adDelivery : adDeliveryList) {
             ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(adDelivery.getAreaId());
-            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, "暂时不做");
+            String addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
+            adDeliveryVOList.add(adDeliveryVO);
+        }
+
+        PageInfo pageInfo = new PageInfo(adDeliveryList);
+        pageInfo.setList(adDeliveryVOList);
+        PageResponseBean page = new PageResponseBean<AdDelivery>(pageInfo);
+        page.setCode(0);
+        page.setHttpStatus(200);
+        return page;
+    }
+
+    @Override
+    public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, String level, String areaId, String addressId, Integer priority) {
+        PageHelper.startPage(pageNum, pageSize);
+        int number = level.length();
+        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectListBySearch(level, number, areaId, addressId, priority);
+
+        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
+        for (AdDelivery adDelivery : adDeliveryList) {
+            ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(adDelivery.getAreaId());
+            String addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
             adDeliveryVOList.add(adDeliveryVO);
         }
 

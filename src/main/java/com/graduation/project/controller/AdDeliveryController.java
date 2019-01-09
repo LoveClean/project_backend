@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 
 @Api(description = "广告投放操作接口", produces = "application/json")
 @RestController
@@ -44,6 +45,12 @@ public class AdDeliveryController extends BaseController {
     @GetMapping(value = "selectList")
     public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize, HttpServletRequest request) {
         return adDeliveryService.selectList(pageNum, pageSize, super.getSessionUser(request).getLevel());
+    }
+
+    @ApiOperation(value = "搜索广告投放列表", notes = "搜索广告投放列表")
+    @GetMapping(value = "selectListBySearch")
+    public PageResponseBean selectListBySearch(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam String areaId, @RequestParam String addressId, @RequestParam Integer priority, HttpServletRequest request) {
+        return adDeliveryService.selectListBySearch(pageNum, pageSize, super.getSessionUser(request).getLevel(), areaId, addressId, priority);
     }
 
     @ApiOperation(value = "修改广告投放", notes = "修改广告投放")

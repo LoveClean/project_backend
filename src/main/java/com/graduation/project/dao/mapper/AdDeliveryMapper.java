@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 public interface AdDeliveryMapper {
@@ -19,6 +20,9 @@ public interface AdDeliveryMapper {
 
     @Select("SELECT * FROM tb_ad_delivery WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') ORDER BY create_date DESC")
     List<AdDelivery> selectList(@Param("level") String level, @Param("number") Integer number);
+
+    @Select("SELECT * FROM tb_ad_delivery WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%') AND area_id LIKE CONCAT('%',#{areaId},'%') AND address_id LIKE CONCAT('%',#{addressId},'%') AND priority LIKE CONCAT('%',#{priority},'%') ORDER BY create_date DESC")
+    List<AdDelivery> selectListBySearch(@Param("level") String level, @Param("number") Integer number, @Param("areaId") String areaId, @Param("addressId") String addressId, @Param("priority") Integer priority);
 
     int updateByPrimaryKeySelective(AdDelivery record);
 

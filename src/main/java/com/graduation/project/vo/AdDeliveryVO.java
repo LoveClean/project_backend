@@ -13,6 +13,7 @@ public class AdDeliveryVO {
     private String addressId;
     private Date beginTime;
     private Date endTime;
+    private String createBy;
     private Object areaAddress;
     private String addressName;
 
@@ -27,6 +28,7 @@ public class AdDeliveryVO {
         this.addressId = adDelivery.getAddressId();
         this.beginTime = adDelivery.getBeginTime();
         this.endTime = adDelivery.getEndTime();
+        this.createBy = adDelivery.getCreateBy();
         this.areaAddress = areaAddress.getData();
         this.addressName = addressName;
     }
@@ -101,5 +103,13 @@ public class AdDeliveryVO {
 
     public void setAddressName(String addressName) {
         this.addressName = addressName;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 }
