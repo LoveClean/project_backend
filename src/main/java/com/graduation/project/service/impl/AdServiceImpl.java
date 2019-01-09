@@ -44,11 +44,18 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public ResponseEntity<Integer> insertSelective(Ad record) {
+        //校验
+        Ad validResponse = adMapper.selectByName(record.getName());
+        if (validResponse != null) {
+            return ResponseEntityUtil.fail("此名称已存在");
+        }
+
         int resultCount = adMapper.insertSelective(record);
         if (resultCount == 0) {
             return ResponseEntityUtil.fail("广告添加失败");
         }
-        return ResponseEntityUtil.success(resultCount);
+        Ad ad = adMapper.selectByName(record.getName());
+        return ResponseEntityUtil.success(ad.getId());
     }
 
     @Override
@@ -125,6 +132,11 @@ public class AdServiceImpl implements AdService {
 
     @Override
     public ResponseEntity<Integer> updateByPrimaryKeySelective(Ad record) {
+        //校验
+        Ad validResponse = adMapper.selectByName(record.getName());
+        if (validResponse != null && validResponse.getId() != record.getId()) {
+            return ResponseEntityUtil.fail("此名称已存在");
+        }
         int updateCount = adMapper.updateByPrimaryKeySelective(record);
         if (updateCount == 0) {
             return ResponseEntityUtil.fail("广告更新失败");

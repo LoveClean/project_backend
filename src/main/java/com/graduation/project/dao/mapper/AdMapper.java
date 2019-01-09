@@ -17,6 +17,9 @@ public interface AdMapper {
 
     Ad selectByPrimaryKey(Integer id);
 
+    @Select("SELECT * FROM tb_ad WHERE del_flag = 0 AND name = #{name}")
+    Ad selectByName(@Param("name") String name);
+
     List<Ad> selectList();
 
     @Select("SELECT * FROM tb_ad WHERE del_flag = 0 AND name LIKE CONCAT('%',#{name},'%') AND groupid = #{groupid} ORDER BY create_date DESC")
