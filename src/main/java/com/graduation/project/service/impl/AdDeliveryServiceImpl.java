@@ -169,7 +169,6 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
                     addressName = "全区";
                 }
             }
-
             AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
             adDeliveryVOList.add(adDeliveryVO);
         }
