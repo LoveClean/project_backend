@@ -82,8 +82,6 @@ public class AdDeliveryController extends BaseController {
         record.setAddressId(bean.getAddressId());
         record.setBeginTime(DateUtil.stringToDate(bean.getBeginTime(), DateUtil.DEFAULT_PATTERN));
         record.setEndTime(DateUtil.stringToDate(bean.getEndTime(), DateUtil.DEFAULT_PATTERN));
-//        record.setBeginTime(bean.getBeginTime());
-//        record.setEndTime(bean.getEndTime());
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return adDeliveryService.updateByPrimaryKeySelective(record);
     }
