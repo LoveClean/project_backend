@@ -9,6 +9,7 @@ public class AdminVO {
     private String phone;
     private String level;
     private Byte status;
+    private String createBy;
     private String levelAddress;
     private String levelNmae;
 
@@ -21,6 +22,7 @@ public class AdminVO {
         this.phone = admin.getPhone();
         this.level = admin.getLevel();
         this.status = admin.getStatus();
+        this.createBy = admin.getCreateBy();
         this.levelAddress = levelAddress;
         this.levelNmae = levelNmae;
     }
@@ -63,6 +65,14 @@ public class AdminVO {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
     public String getLevelAddress() {
