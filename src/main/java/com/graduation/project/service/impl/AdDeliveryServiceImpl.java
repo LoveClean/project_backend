@@ -104,7 +104,7 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
             } else if (areaIdLength == 6) {
                 areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
                 try {
-                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getName();
                 } catch (Exception e) {
                     addressName = "全区";
                 }
