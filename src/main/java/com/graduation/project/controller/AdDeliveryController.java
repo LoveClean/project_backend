@@ -7,6 +7,7 @@ import com.graduation.project.dao.entity.AdDelivery;
 import com.graduation.project.service.AdDeliveryService;
 import com.graduation.project.util.DateUtil;
 import com.graduation.project.util.ResponseEntity;
+import com.graduation.project.util.ResponseEntityUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,13 @@ public class AdDeliveryController extends BaseController {
     @ApiOperation(value = "添加广告投放", notes = "添加广告投放")
     @PostMapping(value = "insertSelective")
     public ResponseEntity<Integer> insertSelective(@Valid @RequestBody AdDeliveryInsertSelective bean, HttpServletRequest request) {
+        // 校验身份等级，防止越权
+        String level = super.getSessionUser(request).getLevel();
+        int levelLength = level.length();
+        if (!bean.getAreaId().substring(0, levelLength).equals(level)) {
+            return ResponseEntityUtil.fail("身份越权");
+        }
+
         Date beginTime = DateUtil.stringToDate(bean.getBeginTime(), DateUtil.DEFAULT_PATTERN);
         Date endTime = DateUtil.stringToDate(bean.getEndTime(), DateUtil.DEFAULT_PATTERN);
         AdDelivery record = new AdDelivery(bean.getAdId(), bean.getPriority(), bean.getAreaId(), bean.getAddressId(), beginTime, endTime, super.getSessionUser(request).getTruename());
@@ -59,6 +67,13 @@ public class AdDeliveryController extends BaseController {
     @ApiOperation(value = "修改广告投放", notes = "修改广告投放")
     @PutMapping(value = "updateByPrimaryKeySelective")
     public ResponseEntity<Integer> updateByPrimaryKeySelective(@Valid @RequestBody AdDeliveryUpdateByPrimaryKeySelective bean, HttpServletRequest request) {
+        // 校验身份等级，防止越权
+        String level = super.getSessionUser(request).getLevel();
+        int levelLength = level.length();
+        if (!bean.getAreaId().substring(0, levelLength).equals(level)) {
+            return ResponseEntityUtil.fail("身份越权");
+        }
+
         AdDelivery record = new AdDelivery();
         record.setId(bean.getId());
         record.setAdId(bean.getAdId());
