@@ -13,9 +13,9 @@ public class AdDeliveryUpdateByPrimaryKeySelective {
 
     private String addressId;
 
-    private Date beginTime;
+    private String beginTime;
 
-    private Date endTime;
+    private String endTime;
 
     public Integer getId() {
         return id;
@@ -57,19 +57,19 @@ public class AdDeliveryUpdateByPrimaryKeySelective {
         this.addressId = addressId;
     }
 
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }

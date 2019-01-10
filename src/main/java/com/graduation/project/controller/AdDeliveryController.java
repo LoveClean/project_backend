@@ -5,6 +5,7 @@ import com.graduation.project.controller.request.AdDeliveryUpdateByPrimaryKeySel
 import com.graduation.project.controller.response.PageResponseBean;
 import com.graduation.project.dao.entity.AdDelivery;
 import com.graduation.project.service.AdDeliveryService;
+import com.graduation.project.util.DateUtil;
 import com.graduation.project.util.ResponseEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,7 +32,9 @@ public class AdDeliveryController extends BaseController {
     @ApiOperation(value = "添加广告投放", notes = "添加广告投放")
     @PostMapping(value = "insertSelective")
     public ResponseEntity<Integer> insertSelective(@Valid @RequestBody AdDeliveryInsertSelective bean, HttpServletRequest request) {
-        AdDelivery record = new AdDelivery(bean.getAdId(), bean.getPriority(), bean.getAreaId(), bean.getAddressId(), bean.getBeginTime(), bean.getEndTime(), super.getSessionUser(request).getTruename());
+        Date beginTime = DateUtil.stringToDate(bean.getBeginTime(), DateUtil.DEFAULT_PATTERN);
+        Date endTime = DateUtil.stringToDate(bean.getEndTime(), DateUtil.DEFAULT_PATTERN);
+        AdDelivery record = new AdDelivery(bean.getAdId(), bean.getPriority(), bean.getAreaId(), bean.getAddressId(), beginTime, endTime, super.getSessionUser(request).getTruename());
         return adDeliveryService.insertSelective(record);
     }
 
@@ -62,8 +65,10 @@ public class AdDeliveryController extends BaseController {
         record.setPriority(bean.getPriority());
         record.setAreaId(bean.getAreaId());
         record.setAddressId(bean.getAddressId());
-        record.setBeginTime(bean.getBeginTime());
-        record.setEndTime(bean.getEndTime());
+        record.setBeginTime(DateUtil.stringToDate(bean.getBeginTime(), DateUtil.DEFAULT_PATTERN));
+        record.setEndTime(DateUtil.stringToDate(bean.getEndTime(), DateUtil.DEFAULT_PATTERN));
+//        record.setBeginTime(bean.getBeginTime());
+//        record.setEndTime(bean.getEndTime());
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return adDeliveryService.updateByPrimaryKeySelective(record);
     }
