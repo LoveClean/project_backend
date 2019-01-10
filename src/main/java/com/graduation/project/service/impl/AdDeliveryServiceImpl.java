@@ -22,6 +22,8 @@ import java.util.List;
 @Service
 public class AdDeliveryServiceImpl implements AdDeliveryService {
     @Resource
+    private AdMapper adMapper;
+    @Resource
     private AdDeliveryMapper adDeliveryMapper;
     @Resource
     private MapsMapper mapsMapper;
@@ -169,7 +171,8 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
                     addressName = "全区";
                 }
             }
-            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
+            String adName = adMapper.selectByPrimaryKey(adDelivery.getAdId()).getName();
+            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName, adName);
             adDeliveryVOList.add(adDeliveryVO);
         }
 

@@ -16,11 +16,12 @@ public class AdDeliveryVO {
     private String createBy;
     private String areaAddress;
     private String addressName;
+    private String adName;
 
     public AdDeliveryVO() {
     }
 
-    public AdDeliveryVO(AdDelivery adDelivery, String areaAddress, String addressName) {
+    public AdDeliveryVO(AdDelivery adDelivery, String areaAddress, String addressName, String adName) {
         this.id = adDelivery.getId();
         this.adId = adDelivery.getAdId();
         this.priority = adDelivery.getPriority();
@@ -31,6 +32,7 @@ public class AdDeliveryVO {
         this.createBy = adDelivery.getCreateBy();
         this.areaAddress = areaAddress;
         this.addressName = addressName;
+        this.adName = adName;
     }
 
     public Integer getId() {
@@ -111,5 +113,13 @@ public class AdDeliveryVO {
 
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
+    }
+
+    public String getAdName() {
+        return adName;
+    }
+
+    public void setAdName(String adName) {
+        this.adName = adName;
     }
 }
