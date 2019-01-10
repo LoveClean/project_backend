@@ -24,8 +24,8 @@ public interface AdminMapper {
     @Select("SELECT * FROM tb_admin WHERE del_flag = 0 AND left(level,#{number}) = #{level} ORDER BY create_date DESC")
     List<Admin> selectList(@Param("level") String level, @Param("number") Integer number);
 
-    @Select("SELECT * FROM tb_admin WHERE del_flag = 0 AND level LIKE CONCAT('%',#{level},'%') AND left(level,#{number}) = #{level0} ORDER BY create_date DESC")
-    List<Admin> selectListByLevel(@Param("level") String level, @Param("level0") String level0, @Param("number") Integer number);
+    @Select("SELECT * FROM tb_admin WHERE del_flag = 0 AND phone LIKE CONCAT('%',#{phone},'%') AND level LIKE CONCAT('%',#{level},'%') AND left(level,#{number}) = #{level0} ORDER BY create_date DESC")
+    List<Admin> selectListBySearch(@Param("phone") String phone, @Param("level") String level, @Param("level0") String level0, @Param("number") Integer number);
 
     int updateByPrimaryKeySelective(Admin record);
 
