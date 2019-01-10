@@ -40,7 +40,7 @@ public class AdminController extends BaseController {
         // 校验身份等级，防止越权
         String level = super.getSessionUser(request).getLevel();
         int levelLength = level.length();
-        if (!bean.getLevel().substring(0, levelLength).equals(level)) {
+        if (!bean.getLevel().substring(0, levelLength).equals(level) || level.equals(bean.getLevel())) {
             return ResponseEntityUtil.fail("身份越权");
         }
 
@@ -88,7 +88,7 @@ public class AdminController extends BaseController {
         // 校验身份等级，防止越权
         String level = super.getSessionUser(request).getLevel();
         int levelLength = level.length();
-        if (!bean.getLevel().substring(0, levelLength).equals(level)) {
+        if (!bean.getLevel().substring(0, levelLength).equals(level) || level.equals(bean.getLevel())) {
             return ResponseEntityUtil.fail("身份越权");
         }
 
