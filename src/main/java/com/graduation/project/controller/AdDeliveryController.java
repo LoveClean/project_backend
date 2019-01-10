@@ -49,8 +49,8 @@ public class AdDeliveryController extends BaseController {
 
     @ApiOperation(value = "搜索广告投放列表", notes = "搜索广告投放列表")
     @GetMapping(value = "selectListBySearch")
-    public PageResponseBean selectListBySearch(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam String areaId, @RequestParam String addressId, @RequestParam Integer priority, HttpServletRequest request) {
-        return adDeliveryService.selectListBySearch(pageNum, pageSize, super.getSessionUser(request).getLevel(), areaId, addressId, priority);
+    public PageResponseBean selectListBySearch(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam String areaId, @RequestParam String addressId, HttpServletRequest request) {
+        return adDeliveryService.selectListBySearch(pageNum, pageSize, super.getSessionUser(request).getLevel(), areaId, addressId);
     }
 
     @ApiOperation(value = "修改广告投放", notes = "修改广告投放")

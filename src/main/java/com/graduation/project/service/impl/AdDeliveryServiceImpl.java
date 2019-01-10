@@ -102,10 +102,10 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
     }
 
     @Override
-    public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, String level, String areaId0, String addressId, Integer priority) {
+    public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, String level, String areaId0, String addressId) {
         PageHelper.startPage(pageNum, pageSize);
         int number = level.length();
-        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectListBySearch(level, number, areaId0, addressId, priority);
+        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectListBySearch(level, number, areaId0, addressId);
 
 //        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
 //        for (AdDelivery adDelivery : adDeliveryList) {
