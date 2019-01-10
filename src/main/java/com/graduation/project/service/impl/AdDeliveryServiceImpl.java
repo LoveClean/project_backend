@@ -5,8 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.graduation.project.controller.response.PageResponseBean;
 import com.graduation.project.dao.entity.AdDelivery;
-import com.graduation.project.dao.mapper.AdDeliveryMapper;
-import com.graduation.project.dao.mapper.MapsMapper;
+import com.graduation.project.dao.mapper.*;
 import com.graduation.project.service.AdDeliveryService;
 import com.graduation.project.service.CityService;
 import com.graduation.project.util.ResponseEntity;
@@ -26,8 +25,12 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
     private AdDeliveryMapper adDeliveryMapper;
     @Resource
     private MapsMapper mapsMapper;
-    @Autowired
-    private CityService cityService;
+    @Resource
+    private ProvinceMapper provinceMapper;
+    @Resource
+    private CityMapper cityMapper;
+    @Resource
+    private AreaMapper areaMapper;
 
     @Override
     public ResponseEntity<Integer> deleteByPrimaryKey(Integer id, String updateBy) {
@@ -64,8 +67,25 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
 
         List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
         for (AdDelivery adDelivery : adDeliveryList) {
-            ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(adDelivery.getAreaId());
-            String addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+            String areaId = adDelivery.getAreaId();
+            int areaIdLength = adDelivery.getAreaId().length();
+            String areaAddress = "全国";
+            String addressName = "全国";
+            if (areaIdLength == 2) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
+                addressName = "全省";
+            } else if (areaIdLength == 4) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
+                addressName = "全市";
+            } else if (areaIdLength == 6) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
+                try {
+                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+                } catch (Exception e) {
+                    addressName = "全区";
+                }
+            }
+
             AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
             adDeliveryVOList.add(adDeliveryVO);
         }
@@ -79,15 +99,32 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
     }
 
     @Override
-    public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, String level, String areaId, String addressId, Integer priority) {
+    public PageResponseBean selectListBySearch(Integer pageNum, Integer pageSize, String level, String areaId0, String addressId, Integer priority) {
         PageHelper.startPage(pageNum, pageSize);
         int number = level.length();
-        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectListBySearch(level, number, areaId, addressId, priority);
+        List<AdDelivery> adDeliveryList = adDeliveryMapper.selectListBySearch(level, number, areaId0, addressId, priority);
 
         List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
         for (AdDelivery adDelivery : adDeliveryList) {
-            ResponseEntity<AreaVo> areaAddress = cityService.selectByAreaId(adDelivery.getAreaId());
-            String addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+            String areaId = adDelivery.getAreaId();
+            int areaIdLength = adDelivery.getAreaId().length();
+            String areaAddress = "全国";
+            String addressName = "全国";
+            if (areaIdLength == 2) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
+                addressName = "全省";
+            } else if (areaIdLength == 4) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
+                addressName = "全市";
+            } else if (areaIdLength == 6) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
+                try {
+                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+                } catch (Exception e) {
+                    addressName = "全区";
+                }
+            }
+
             AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
             adDeliveryVOList.add(adDeliveryVO);
         }

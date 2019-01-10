@@ -14,13 +14,13 @@ public class AdDeliveryVO {
     private Date beginTime;
     private Date endTime;
     private String createBy;
-    private Object areaAddress;
+    private String areaAddress;
     private String addressName;
 
     public AdDeliveryVO() {
     }
 
-    public AdDeliveryVO(AdDelivery adDelivery, ResponseEntity areaAddress, String addressName) {
+    public AdDeliveryVO(AdDelivery adDelivery, String areaAddress, String addressName) {
         this.id = adDelivery.getId();
         this.adId = adDelivery.getAdId();
         this.priority = adDelivery.getPriority();
@@ -29,7 +29,7 @@ public class AdDeliveryVO {
         this.beginTime = adDelivery.getBeginTime();
         this.endTime = adDelivery.getEndTime();
         this.createBy = adDelivery.getCreateBy();
-        this.areaAddress = areaAddress.getData();
+        this.areaAddress = areaAddress;
         this.addressName = addressName;
     }
 
@@ -89,11 +89,11 @@ public class AdDeliveryVO {
         this.endTime = endTime;
     }
 
-    public Object getAreaAddress() {
+    public String getAreaAddress() {
         return areaAddress;
     }
 
-    public void setAreaAddress(Object areaAddress) {
+    public void setAreaAddress(String areaAddress) {
         this.areaAddress = areaAddress;
     }
 
