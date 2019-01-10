@@ -65,37 +65,38 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
         int number = level.length();
         List<AdDelivery> adDeliveryList = adDeliveryMapper.selectList(level, number);
 
-        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
-        for (AdDelivery adDelivery : adDeliveryList) {
-            String areaId = adDelivery.getAreaId();
-            int areaIdLength = adDelivery.getAreaId().length();
-            String areaAddress = "全国";
-            String addressName = "全国";
-            if (areaIdLength == 2) {
-                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
-                addressName = "全省";
-            } else if (areaIdLength == 4) {
-                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
-                addressName = "全市";
-            } else if (areaIdLength == 6) {
-                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
-                try {
-                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
-                } catch (Exception e) {
-                    addressName = "全区";
-                }
-            }
-
-            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
-            adDeliveryVOList.add(adDeliveryVO);
-        }
-
-        PageInfo pageInfo = new PageInfo(adDeliveryList);
-        pageInfo.setList(adDeliveryVOList);
-        PageResponseBean page = new PageResponseBean<AdDelivery>(pageInfo);
-        page.setCode(0);
-        page.setHttpStatus(200);
-        return page;
+//        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
+//        for (AdDelivery adDelivery : adDeliveryList) {
+//            String areaId = adDelivery.getAreaId();
+//            int areaIdLength = areaId.length();
+//            String areaAddress = "全国";
+//            String addressName = "全国";
+//            if (areaIdLength == 2) {
+//                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
+//                addressName = "全省";
+//            } else if (areaIdLength == 4) {
+//                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
+//                addressName = "全市";
+//            } else if (areaIdLength == 6) {
+//                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
+//                try {
+//                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+//                } catch (Exception e) {
+//                    addressName = "全区";
+//                }
+//            }
+//
+//            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
+//            adDeliveryVOList.add(adDeliveryVO);
+//        }
+//
+//        PageInfo pageInfo = new PageInfo(adDeliveryList);
+//        pageInfo.setList(adDeliveryVOList);
+//        PageResponseBean page = new PageResponseBean<AdDelivery>(pageInfo);
+//        page.setCode(0);
+//        page.setHttpStatus(200);
+//        return page;
+        return adDeliveryList(adDeliveryList);
     }
 
     @Override
@@ -104,37 +105,38 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
         int number = level.length();
         List<AdDelivery> adDeliveryList = adDeliveryMapper.selectListBySearch(level, number, areaId0, addressId, priority);
 
-        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
-        for (AdDelivery adDelivery : adDeliveryList) {
-            String areaId = adDelivery.getAreaId();
-            int areaIdLength = adDelivery.getAreaId().length();
-            String areaAddress = "全国";
-            String addressName = "全国";
-            if (areaIdLength == 2) {
-                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
-                addressName = "全省";
-            } else if (areaIdLength == 4) {
-                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
-                addressName = "全市";
-            } else if (areaIdLength == 6) {
-                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
-                try {
-                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
-                } catch (Exception e) {
-                    addressName = "全区";
-                }
-            }
-
-            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
-            adDeliveryVOList.add(adDeliveryVO);
-        }
-
-        PageInfo pageInfo = new PageInfo(adDeliveryList);
-        pageInfo.setList(adDeliveryVOList);
-        PageResponseBean page = new PageResponseBean<AdDelivery>(pageInfo);
-        page.setCode(0);
-        page.setHttpStatus(200);
-        return page;
+//        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
+//        for (AdDelivery adDelivery : adDeliveryList) {
+//            String areaId = adDelivery.getAreaId();
+//            int areaIdLength = areaId.length();
+//            String areaAddress = "全国";
+//            String addressName = "全国";
+//            if (areaIdLength == 2) {
+//                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
+//                addressName = "全省";
+//            } else if (areaIdLength == 4) {
+//                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
+//                addressName = "全市";
+//            } else if (areaIdLength == 6) {
+//                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
+//                try {
+//                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+//                } catch (Exception e) {
+//                    addressName = "全区";
+//                }
+//            }
+//
+//            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
+//            adDeliveryVOList.add(adDeliveryVO);
+//        }
+//
+//        PageInfo pageInfo = new PageInfo(adDeliveryList);
+//        pageInfo.setList(adDeliveryVOList);
+//        PageResponseBean page = new PageResponseBean<AdDelivery>(pageInfo);
+//        page.setCode(0);
+//        page.setHttpStatus(200);
+//        return page;
+        return adDeliveryList(adDeliveryList);
     }
 
     @Override
@@ -144,5 +146,39 @@ public class AdDeliveryServiceImpl implements AdDeliveryService {
             return ResponseEntityUtil.fail("投放记录更新失败");
         }
         return ResponseEntityUtil.success(updateCount);
+    }
+
+    private PageResponseBean adDeliveryList(List<AdDelivery> adDeliveryList) {
+        List<AdDeliveryVO> adDeliveryVOList = Lists.newArrayList();
+        for (AdDelivery adDelivery : adDeliveryList) {
+            String areaId = adDelivery.getAreaId();
+            int areaIdLength = areaId.length();
+            String areaAddress = "全国";
+            String addressName = "全国";
+            if (areaIdLength == 2) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId + "0000").getProvince();
+                addressName = "全省";
+            } else if (areaIdLength == 4) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity();
+                addressName = "全市";
+            } else if (areaIdLength == 6) {
+                areaAddress = provinceMapper.selectByProvinceId(areaId.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(areaId.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(areaId).getArea();
+                try {
+                    addressName = mapsMapper.selectByPrimaryKey(Integer.parseInt(adDelivery.getAddressId())).getAddress();
+                } catch (Exception e) {
+                    addressName = "全区";
+                }
+            }
+
+            AdDeliveryVO adDeliveryVO = new AdDeliveryVO(adDelivery, areaAddress, addressName);
+            adDeliveryVOList.add(adDeliveryVO);
+        }
+
+        PageInfo pageInfo = new PageInfo(adDeliveryList);
+        pageInfo.setList(adDeliveryVOList);
+        PageResponseBean page = new PageResponseBean<AdDelivery>(pageInfo);
+        page.setCode(0);
+        page.setHttpStatus(200);
+        return page;
     }
 }

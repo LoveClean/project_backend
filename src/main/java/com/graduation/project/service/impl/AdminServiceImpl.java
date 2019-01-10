@@ -7,6 +7,9 @@ import com.graduation.project.contants.Errors;
 import com.graduation.project.controller.response.PageResponseBean;
 import com.graduation.project.dao.entity.Admin;
 import com.graduation.project.dao.mapper.AdminMapper;
+import com.graduation.project.dao.mapper.AreaMapper;
+import com.graduation.project.dao.mapper.CityMapper;
+import com.graduation.project.dao.mapper.ProvinceMapper;
 import com.graduation.project.service.AdminService;
 import com.graduation.project.service.CityService;
 import com.graduation.project.util.MD5Util;
@@ -26,8 +29,12 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
     @Resource
     private AdminMapper adminMapper;
-    @Autowired
-    private CityService cityService;
+    @Resource
+    private ProvinceMapper provinceMapper;
+    @Resource
+    private CityMapper cityMapper;
+    @Resource
+    private AreaMapper areaMapper;
 
     @Override
     public ResponseEntity<Integer> deleteByPrimaryKey(Integer id, String updateBy) {
@@ -71,33 +78,33 @@ public class AdminServiceImpl implements AdminService {
         int number = level.length();
         List<Admin> adminList = adminMapper.selectList(level, number);
 
-        List<AdminVO> adminVOList = Lists.newArrayList();
-        for (Admin admin : adminList) {
-            ResponseEntity levelAddress;
-            String levelNmae = "未知管理员";
-            if (admin.getLevel().length() == 2) {
-                levelAddress = cityService.selectByProvinceId(admin.getLevel() + "0000");
-                levelNmae = "省级管理员";
-            } else if (admin.getLevel().length() == 4) {
-                levelAddress = cityService.selectByCityId(admin.getLevel() + "00");
-                levelNmae = "市级管理员";
-            } else if (admin.getLevel().length() == 6) {
-                levelAddress = cityService.selectByAreaId(admin.getLevel());
-                levelNmae = "区域管理员";
-            } else {
-                levelAddress = cityService.selectByAreaId(admin.getLevel());
-                levelNmae = "超级管理员";
-            }
-            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
-            adminVOList.add(adminVO);
-        }
-
-        PageInfo pageInfo = new PageInfo(adminList);
-        pageInfo.setList(adminVOList);
-        PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
-        page.setCode(0);
-        page.setHttpStatus(200);
-        return page;
+//        List<AdminVO> adminVOList = Lists.newArrayList();
+//        for (Admin admin : adminList) {
+//            String adminLevel = admin.getLevel();
+//            int adminLevelLength = adminLevel.length();
+//            String levelAddress = "全国";
+//            String levelNmae = "全国管理员";
+//            if (adminLevelLength == 2) {
+//                levelAddress = provinceMapper.selectByProvinceId(adminLevel + "0000").getProvince();
+//                levelNmae = "省级管理员";
+//            } else if (adminLevelLength == 4) {
+//                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity();
+//                levelNmae = "市级管理员";
+//            } else if (adminLevelLength == 6) {
+//                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(adminLevel).getArea();
+//                levelNmae = "区域管理员";
+//            }
+//            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
+//            adminVOList.add(adminVO);
+//        }
+//
+//        PageInfo pageInfo = new PageInfo(adminList);
+//        pageInfo.setList(adminVOList);
+//        PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
+//        page.setCode(0);
+//        page.setHttpStatus(200);
+//        return page;
+        return adminList(adminList);
     }
 
     @Override
@@ -106,33 +113,33 @@ public class AdminServiceImpl implements AdminService {
         int number = level.length();
         List<Admin> adminList = adminMapper.selectListByLevel(level, level0, number);
 
-        List<AdminVO> adminVOList = Lists.newArrayList();
-        for (Admin admin : adminList) {
-            ResponseEntity levelAddress;
-            String levelNmae = "未知管理员";
-            if (admin.getLevel().length() == 2) {
-                levelAddress = cityService.selectByProvinceId(admin.getLevel() + "0000");
-                levelNmae = "省级管理员";
-            } else if (admin.getLevel().length() == 4) {
-                levelAddress = cityService.selectByCityId(admin.getLevel() + "00");
-                levelNmae = "市级管理员";
-            } else if (admin.getLevel().length() == 6) {
-                levelAddress = cityService.selectByAreaId(admin.getLevel());
-                levelNmae = "区域管理员";
-            } else {
-                levelAddress = cityService.selectByAreaId(admin.getLevel());
-                levelNmae = "超级管理员";
-            }
-            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
-            adminVOList.add(adminVO);
-        }
-
-        PageInfo pageInfo = new PageInfo(adminList);
-        pageInfo.setList(adminList);
-        PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
-        page.setCode(0);
-        page.setHttpStatus(200);
-        return page;
+//        List<AdminVO> adminVOList = Lists.newArrayList();
+//        for (Admin admin : adminList) {
+//            String adminLevel = admin.getLevel();
+//            int adminLevelLength = adminLevel.length();
+//            String levelAddress = "全国";
+//            String levelNmae = "全国管理员";
+//            if (adminLevelLength == 2) {
+//                levelAddress = provinceMapper.selectByProvinceId(adminLevel + "0000").getProvince();
+//                levelNmae = "省级管理员";
+//            } else if (adminLevelLength == 4) {
+//                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity();
+//                levelNmae = "市级管理员";
+//            } else if (adminLevelLength == 6) {
+//                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(adminLevel).getArea();
+//                levelNmae = "区域管理员";
+//            }
+//            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
+//            adminVOList.add(adminVO);
+//        }
+//
+//        PageInfo pageInfo = new PageInfo(adminList);
+//        pageInfo.setList(adminList);
+//        PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
+//        page.setCode(0);
+//        page.setHttpStatus(200);
+//        return page;
+        return adminList(adminList);
     }
 
     @Override
@@ -201,5 +208,35 @@ public class AdminServiceImpl implements AdminService {
 
 //        user.setPassword(StringUtils.EMPTY);
         return ResponseEntityUtil.success(user);
+    }
+
+
+    private PageResponseBean adminList(List<Admin> adminList) {
+        List<AdminVO> adminVOList = Lists.newArrayList();
+        for (Admin admin : adminList) {
+            String adminLevel = admin.getLevel();
+            int adminLevelLength = adminLevel.length();
+            String levelAddress = "全国";
+            String levelNmae = "全国管理员";
+            if (adminLevelLength == 2) {
+                levelAddress = provinceMapper.selectByProvinceId(adminLevel + "0000").getProvince();
+                levelNmae = "省级管理员";
+            } else if (adminLevelLength == 4) {
+                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity();
+                levelNmae = "市级管理员";
+            } else if (adminLevelLength == 6) {
+                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(adminLevel).getArea();
+                levelNmae = "区域管理员";
+            }
+            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
+            adminVOList.add(adminVO);
+        }
+
+        PageInfo pageInfo = new PageInfo(adminList);
+        pageInfo.setList(adminVOList);
+        PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
+        page.setCode(0);
+        page.setHttpStatus(200);
+        return page;
     }
 }

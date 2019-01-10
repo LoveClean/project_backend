@@ -9,19 +9,19 @@ public class AdminVO {
     private String phone;
     private String level;
     private Byte status;
-    private Object levelAddress;
+    private String levelAddress;
     private String levelNmae;
 
     public AdminVO() {
     }
 
-    public AdminVO(Admin admin, ResponseEntity levelAddress, String levelNmae) {
+    public AdminVO(Admin admin, String levelAddress, String levelNmae) {
         this.id = admin.getId();
         this.truename = admin.getTruename();
         this.phone = admin.getPhone();
         this.level = admin.getLevel();
         this.status = admin.getStatus();
-        this.levelAddress = levelAddress.getData();
+        this.levelAddress = levelAddress;
         this.levelNmae = levelNmae;
     }
 
@@ -65,11 +65,11 @@ public class AdminVO {
         this.status = status;
     }
 
-    public Object getLevelAddress() {
+    public String getLevelAddress() {
         return levelAddress;
     }
 
-    public void setLevelAddress(Object levelAddress) {
+    public void setLevelAddress(String levelAddress) {
         this.levelAddress = levelAddress;
     }
 
