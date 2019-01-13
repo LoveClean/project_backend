@@ -129,7 +129,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<Admin> login(String phone, String password) {
+    public ResponseEntity<AdminVO> login(String phone, String password) {
         if (StringUtils.isBlank(phone) || StringUtils.isBlank(password)) {
             return ResponseEntityUtil.fail(Errors.SYSTEM_REQUEST_PARAM_ERROR);
         }
@@ -155,36 +155,39 @@ public class AdminServiceImpl implements AdminService {
 //		}
 
 //        user.setPassword(StringUtils.EMPTY);
-        return ResponseEntityUtil.success(user);
+        return ResponseEntityUtil.success(asAdminVo(user));
     }
 
 
     private PageResponseBean adminList(List<Admin> adminList) {
         List<AdminVO> adminVOList = Lists.newArrayList();
         for (Admin admin : adminList) {
-            String adminLevel = admin.getLevel();
-            int adminLevelLength = adminLevel.length();
-            String levelAddress = "全国";
-            String levelNmae = "全国管理员";
-            if (adminLevelLength == 2) {
-                levelAddress = provinceMapper.selectByProvinceId(adminLevel + "0000").getProvince();
-                levelNmae = "省级管理员";
-            } else if (adminLevelLength == 4) {
-                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity();
-                levelNmae = "市级管理员";
-            } else if (adminLevelLength == 6) {
-                levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(adminLevel).getArea();
-                levelNmae = "区域管理员";
-            }
-            AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
-            adminVOList.add(adminVO);
+            adminVOList.add(asAdminVo(admin));
         }
-
         PageInfo pageInfo = new PageInfo(adminList);
         pageInfo.setList(adminVOList);
         PageResponseBean page = new PageResponseBean<Admin>(pageInfo);
         page.setCode(0);
         page.setHttpStatus(200);
         return page;
+    }
+
+    private AdminVO asAdminVo(Admin admin){
+        String adminLevel = admin.getLevel();
+        int adminLevelLength = adminLevel.length();
+        String levelAddress = "全国";
+        String levelNmae = "全国管理员";
+        if (adminLevelLength == 2) {
+            levelAddress = provinceMapper.selectByProvinceId(adminLevel + "0000").getProvince();
+            levelNmae = "省级管理员";
+        } else if (adminLevelLength == 4) {
+            levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity();
+            levelNmae = "市级管理员";
+        } else if (adminLevelLength == 6) {
+            levelAddress = provinceMapper.selectByProvinceId(adminLevel.substring(0, 2) + "0000").getProvince() + cityMapper.selectByCityId(adminLevel.substring(0, 4) + "00").getCity() + areaMapper.selectByAreaId(adminLevel).getArea();
+            levelNmae = "区域管理员";
+        }
+        AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
+        return adminVO;
     }
 }

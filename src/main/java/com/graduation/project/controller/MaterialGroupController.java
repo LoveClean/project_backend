@@ -42,7 +42,7 @@ public class MaterialGroupController extends BaseController {
 
     @ApiOperation(value = "查看素材分组列表", notes = "查看素材分组列表")
     @GetMapping(value = "selectList")
-    public PageResponseBean selectList(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    public PageResponseBean selectList(@RequestParam(defaultValue = "1", required = false) Integer pageNum, @RequestParam(defaultValue = "999", required = false) Integer pageSize) {
         return materialGroupService.selectList(pageNum, pageSize);
     }
 

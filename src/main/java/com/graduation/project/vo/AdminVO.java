@@ -10,13 +10,13 @@ public class AdminVO {
     private String level;
     private Byte status;
     private String createBy;
-    private String levelAddress;
-    private String levelNmae;
-
+    private String levelAddress;// 管辖地址
+    private String levelName;
+    private String accessToken;// 登录token
     public AdminVO() {
     }
 
-    public AdminVO(Admin admin, String levelAddress, String levelNmae) {
+    public AdminVO(Admin admin, String levelAddress, String levelName) {
         this.id = admin.getId();
         this.truename = admin.getTruename();
         this.phone = admin.getPhone();
@@ -24,7 +24,7 @@ public class AdminVO {
         this.status = admin.getStatus();
         this.createBy = admin.getCreateBy();
         this.levelAddress = levelAddress;
-        this.levelNmae = levelNmae;
+        this.levelName = levelName;
     }
 
     public Integer getId() {
@@ -83,11 +83,19 @@ public class AdminVO {
         this.levelAddress = levelAddress;
     }
 
-    public String getLevelNmae() {
-        return levelNmae;
+    public String getLevelName() {
+        return levelName;
     }
 
-    public void setLevelNmae(String levelNmae) {
-        this.levelNmae = levelNmae;
+    public void setLevelName(String levelNmae) {
+        this.levelName = levelNmae;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }

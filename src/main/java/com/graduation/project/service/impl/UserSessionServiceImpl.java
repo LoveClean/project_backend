@@ -8,6 +8,7 @@ import com.graduation.project.service.MemcachedService;
 import com.graduation.project.service.UserSessionService;
 import com.graduation.project.util.ExceptionUtil;
 import com.graduation.project.util.StringUtil;
+import com.graduation.project.vo.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class UserSessionServiceImpl implements UserSessionService {
    * @param
    */
   @Override
-  public void sessionUser(HttpServletRequest request, Admin admin) {
+  public void sessionUser(HttpServletRequest request, AdminVO admin) {
     String key = getUserSessionKey(request);
     // JSON格式
     String userJson = JSON.toJSONString(admin);
@@ -49,14 +50,14 @@ public class UserSessionServiceImpl implements UserSessionService {
    * 获取登录用户
    */
   @Override
-  public Admin getSessionUser(HttpServletRequest request) {
+  public AdminVO getSessionUser(HttpServletRequest request) {
     String key = getUserSessionKey(request);
     String jsonStr = (String) memcachedService.get(key);
     
     if (StringUtil.isBlank(jsonStr)) {
       ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
     }
-    Admin user = JSON.parseObject(jsonStr, Admin.class);
+    AdminVO user = JSON.parseObject(jsonStr, AdminVO.class);
     if (user != null) {
       memcachedService.set(key, Const.SERVER_USER_EXP_KEY, jsonStr);
       String accesskey = Const.SERVER_USER_KEY + user.getId();
@@ -69,14 +70,14 @@ public class UserSessionServiceImpl implements UserSessionService {
    * 获取登录用户
    */
   @Override
-  public Admin getSessionUser(String accessToken) {
+  public AdminVO getSessionUser(String accessToken) {
     String key = Const.SERVER_USER_KEY + accessToken;
 
     String jsonStr = (String) memcachedService.get(key);
     if (StringUtil.isBlank(jsonStr)) {
       return null;
     }
-    return JSON.parseObject(jsonStr, Admin.class);
+    return JSON.parseObject(jsonStr, AdminVO.class);
   }
 
   /**
@@ -146,13 +147,13 @@ public class UserSessionServiceImpl implements UserSessionService {
    * @return
    */
   @Override
-  public Admin getLoginUser(HttpServletRequest request) {
+  public AdminVO getLoginUser(HttpServletRequest request) {
     String key = getUserSessionKey(request);
     String jsonStr = (String) memcachedService.get(key);
     if (StringUtil.isBlank(jsonStr)) {
       return null;
     }
-    Admin user = JSON.parseObject(jsonStr, Admin.class);
+    AdminVO user = JSON.parseObject(jsonStr, AdminVO.class);
     if (user != null) {
       memcachedService.set(key, Const.SERVER_USER_EXP_KEY, jsonStr);
       String accesskey = Const.SERVER_USER_KEY + user.getId();

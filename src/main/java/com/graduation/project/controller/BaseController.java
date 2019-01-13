@@ -6,6 +6,7 @@ import com.graduation.project.dao.entity.Admin;
 import com.graduation.project.service.UserSessionService;
 import com.graduation.project.util.ExceptionUtil;
 import com.graduation.project.util.StringUtil;
+import com.graduation.project.vo.AdminVO;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,15 +95,15 @@ public class BaseController {
    * @param request
    * @param user
    */
-  protected void sessionUser(HttpServletRequest request, Admin user) {
+  protected void sessionUser(HttpServletRequest request, AdminVO user) {
     userSessionService.sessionUser(request, user);
   }
 
-  protected Admin getSessionUser(HttpServletRequest request) {
+  protected AdminVO getSessionUser(HttpServletRequest request) {
     return userSessionService.getSessionUser(request);
   }
 
-  protected Admin getSessionUser(String accessToken) {
+  protected AdminVO getSessionUser(String accessToken) {
     return userSessionService.getSessionUser(accessToken);
   }
 
@@ -116,7 +117,7 @@ public class BaseController {
    * @param request
    * @return
    */
-  protected Admin getLoginUser(HttpServletRequest request) {
+  protected AdminVO getLoginUser(HttpServletRequest request) {
     return userSessionService.getLoginUser(request);
   }
 

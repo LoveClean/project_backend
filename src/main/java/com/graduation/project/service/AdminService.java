@@ -3,6 +3,7 @@ package com.graduation.project.service;
 import com.graduation.project.controller.response.PageResponseBean;
 import com.graduation.project.dao.entity.Admin;
 import com.graduation.project.util.ResponseEntity;
+import com.graduation.project.vo.AdminVO;
 
 public interface AdminService {
     ResponseEntity<Integer> deleteByPrimaryKey(Integer id, String updateBy);
@@ -21,5 +22,5 @@ public interface AdminService {
 
     ResponseEntity<Integer> updateStatusById(Integer id, Integer status, String updateBy);
 
-    ResponseEntity<Admin> login(String phone, String password);
+    ResponseEntity<AdminVO> login(String phone, String password);
 }

@@ -62,7 +62,7 @@ public class MaterialServiceImpl implements MaterialService {
     public PageResponseBean selectListBySearch(String type, String name, String groupId, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         List<Material> materialList;
-        if (groupId.equals("")) {
+        if ("".equals(groupId)) {
             materialList = materialMapper.selectListByName(type, name);
         } else {
             materialList = materialMapper.selectListBySearch(type, name, groupId);

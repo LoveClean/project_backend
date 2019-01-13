@@ -1,6 +1,8 @@
 package com.graduation.project.service;
 
 import com.graduation.project.dao.entity.Admin;
+import com.graduation.project.vo.AdminVO;
+
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -20,7 +22,7 @@ public interface UserSessionService {
    * @param request
    * @param user
    */
-  void sessionUser(HttpServletRequest request, Admin admin);
+  void sessionUser(HttpServletRequest request, AdminVO admin);
 
   /**
    * 获取缓存用户，不为空，重新设置缓存中用户的过期时间
@@ -28,7 +30,7 @@ public interface UserSessionService {
    * @param request
    * @return
    */
-  Admin getSessionUser(HttpServletRequest request);
+  AdminVO getSessionUser(HttpServletRequest request);
 
   /**
    * 根据accessToken获取缓存用户
@@ -36,7 +38,7 @@ public interface UserSessionService {
    * @param accessToken
    * @return
    */
-  Admin getSessionUser(String accessToken);
+  AdminVO getSessionUser(String accessToken);
 
   /**
    * 删除缓存中得用户信息
@@ -59,7 +61,7 @@ public interface UserSessionService {
    * @param request
    * @return
    */
-  Admin getLoginUser(HttpServletRequest request);
+  AdminVO getLoginUser(HttpServletRequest request);
   
   /**
    * 获取真实ip

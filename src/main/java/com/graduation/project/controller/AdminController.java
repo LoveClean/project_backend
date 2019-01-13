@@ -8,6 +8,7 @@ import com.graduation.project.service.MemcachedService;
 import com.graduation.project.service.SmsService;
 import com.graduation.project.util.ResponseEntity;
 import com.graduation.project.util.ResponseEntityUtil;
+import com.graduation.project.vo.AdminVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +63,8 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "查看自己信息", notes = "查看自己信息")
     @GetMapping(value = "selectBySession")
-    public ResponseEntity<Admin> selectBySession(HttpServletRequest request) {
-        Admin admin = super.getSessionUser(request);
+    public ResponseEntity<AdminVO> selectBySession(HttpServletRequest request) {
+        AdminVO admin = super.getSessionUser(request);
         if (admin == null) {
             return ResponseEntityUtil.fail("用户未登录，无法获取当前用户信息");
         }
@@ -82,7 +83,7 @@ public class AdminController extends BaseController {
         return adminService.selectListBySearch(phone, level, pageNum, pageSize, super.getSessionUser(request).getLevel());
     }
 
-    @ApiOperation(value = "修改管理员", notes = "修改管理员")
+    @ApiOperation(value = "修改管理员(他人)", notes = "修改管理员(他人)")
     @PutMapping(value = "updateByPrimaryKeySelective")
     public ResponseEntity<Integer> updateByPrimaryKeySelective(@Valid @RequestBody AdminUpdateByPrimaryKeySelective bean, HttpServletRequest request) {
         // 校验身份等级，防止越权
@@ -95,8 +96,23 @@ public class AdminController extends BaseController {
         Admin record = new Admin();
         record.setId(bean.getId());
         record.setTruename(bean.getTrueName());
-        record.setPhone(bean.getPhone());
-        record.setPassword(bean.getPassword());
+        record.setLevel(bean.getLevel());
+        record.setUpdateBy(super.getSessionUser(request).getTruename());
+        return adminService.updateByPrimaryKeySelective(record);
+    }
+
+    @ApiOperation(value = "修改管理员(自己)", notes = "修改管理员(自己)")
+    @PutMapping(value = "updateMeByPrimaryKeySelective")
+    public ResponseEntity<Integer> updateMeByPrimaryKeySelective(@Valid @RequestBody AdminUpdateByPrimaryKeySelective bean, HttpServletRequest request) {
+        // 校验身份
+        Integer id = super.getSessionUser(request).getId();
+        if (!bean.getId().equals(id)) {
+            return ResponseEntityUtil.fail("身份越权");
+        }
+
+        Admin record = new Admin();
+        record.setId(bean.getId());
+        record.setTruename(bean.getTrueName());
         record.setLevel(bean.getLevel());
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return adminService.updateByPrimaryKeySelective(record);
@@ -105,7 +121,7 @@ public class AdminController extends BaseController {
     @ApiOperation(value = "修改自己密码", notes = "登录状态下重置密码")
     @PutMapping(value = "updatePasswordBySession")
     public ResponseEntity<Integer> resetPassword(@Valid @RequestBody AdminUpdatePasswordById bean, HttpServletRequest request) {
-        Admin record = super.getSessionUser(request);
+        AdminVO record = super.getSessionUser(request);
         if (record == null) {
             return ResponseEntityUtil.fail("用户未登录");
         }
@@ -125,7 +141,7 @@ public class AdminController extends BaseController {
 
     @ApiOperation(value = "登陆", notes = "管理员登陆")
     @PostMapping(value = "login")
-    public ResponseEntity<Admin> login(@Valid @RequestBody AdminLogin bean, HttpServletRequest request) {
+    public ResponseEntity<AdminVO> login(@Valid @RequestBody AdminLogin bean, HttpServletRequest request) {
 
 //        Boolean flag=false;
 //        if (memcachedService.get(Const.VERIFY_CODE) != null) {
@@ -141,9 +157,9 @@ public class AdminController extends BaseController {
 //            return ResponseEntityUtil.fail("验证码错误");
 //        }
 
-        ResponseEntity<Admin> response = adminService.login(bean.getPhone(), bean.getLoginPwd());
+        ResponseEntity<AdminVO> response = adminService.login(bean.getPhone(), bean.getLoginPwd());
         if (response.isSuccess()) {
-            Admin admin = response.getData();
+            AdminVO admin = response.getData();
             //session.setAttribute(Const.CURRENT_USER, response.getData());
             // 创建访问token
             String accessToken = super.generateAccessToken(request);

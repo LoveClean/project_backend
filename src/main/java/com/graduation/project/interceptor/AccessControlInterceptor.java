@@ -5,6 +5,7 @@ import com.graduation.project.contants.Errors;
 import com.graduation.project.dao.entity.Admin;
 import com.graduation.project.service.UserSessionService;
 import com.graduation.project.util.ExceptionUtil;
+import com.graduation.project.vo.AdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -66,7 +67,7 @@ public class AccessControlInterceptor extends HandlerInterceptorAdapter {
 	      }
 	    }
 	    // 缓存获取验证
-	    Admin user = userSessionService.getSessionUser(request);
+	    AdminVO user = userSessionService.getSessionUser(request);
 	    if (user == null) {
 	      ExceptionUtil.throwException(Errors.SYSTEM_NOT_LOGIN);
 	    }
