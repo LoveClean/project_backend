@@ -31,4 +31,7 @@ public interface AdMapper {
     int updateByPrimaryKeySelective(Ad record);
 
     int updateByPrimaryKey(Ad record);
+
+    @Select("SELECT COUNT(*) FROM tb_ad WHERE del_flag = 0")
+    int selectTotalElements();
 }

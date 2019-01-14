@@ -23,4 +23,6 @@ public interface AdminService {
     ResponseEntity<Integer> updateStatusById(Integer id, Integer status, String updateBy);
 
     ResponseEntity<AdminVO> login(String phone, String password);
+
+    ResponseEntity<Integer> selectTotalElements(String level);
 }

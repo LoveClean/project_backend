@@ -87,4 +87,9 @@ public class MaterialServiceImpl implements MaterialService {
     public ResponseEntity<Integer> updateByPrimaryKeySelective(Material record) {
         return ResponseEntityUtil.success(materialMapper.updateByPrimaryKeySelective(record));
     }
+
+    @Override
+    public ResponseEntity<Integer> selectTotalElements() {
+        return ResponseEntityUtil.success(materialMapper.selectTotalElements());
+    }
 }

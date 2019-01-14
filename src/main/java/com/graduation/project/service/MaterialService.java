@@ -16,4 +16,6 @@ public interface MaterialService {
     PageResponseBean selectListBySearch(String type, String name, String groupId, Integer pageNum, Integer pageSize);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(Material record);
+
+    ResponseEntity<Integer> selectTotalElements();
 }

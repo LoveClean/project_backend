@@ -190,4 +190,10 @@ public class AdminServiceImpl implements AdminService {
         AdminVO adminVO = new AdminVO(admin, levelAddress, levelNmae);
         return adminVO;
     }
+
+    @Override
+    public ResponseEntity<Integer> selectTotalElements(String level) {
+        int number = level.length();
+        return ResponseEntityUtil.success(adminMapper.selectTotalElements(level, number));
+    }
 }

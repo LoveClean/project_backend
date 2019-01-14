@@ -35,4 +35,7 @@ public interface MapsMapper {
     int updateByPrimaryKeySelective(Maps record);
 
     int updateByPrimaryKey(Maps record);
+
+    @Select("SELECT COUNT(*) FROM tb_maps WHERE del_flag = 0 AND left(area_id,#{number}) LIKE CONCAT('%',#{level},'%')")
+    int selectTotalElements(@Param("level") String level, @Param("number") Integer number);
 }

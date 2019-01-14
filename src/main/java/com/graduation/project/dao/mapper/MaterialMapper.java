@@ -29,4 +29,7 @@ public interface MaterialMapper {
     int updateByPrimaryKeySelective(Material record);
 
     int updateByPrimaryKey(Material record);
+
+    @Select("SELECT COUNT(*) FROM tb_material WHERE del_flag = 0")
+    int selectTotalElements();
 }

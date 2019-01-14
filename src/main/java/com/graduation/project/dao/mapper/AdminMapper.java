@@ -40,4 +40,6 @@ public interface AdminMapper {
     @Select("SELECT * FROM tb_admin WHERE phone = #{phone} AND password = #{password}")
     Admin login(@Param("phone") String phone, @Param("password") String password);
 
+    @Select("SELECT COUNT(*) FROM tb_admin WHERE del_flag = 0 AND left(level,#{number}) = #{level}")
+    int selectTotalElements(@Param("level") String level, @Param("number") Integer number);
 }

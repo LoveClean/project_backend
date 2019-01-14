@@ -64,4 +64,10 @@ public class MapsController extends BaseController {
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return mapsService.updateByPrimaryKeySelective(record);
     }
+
+    @ApiOperation(value = "查看网点总数", notes = "查看网点总数")
+    @GetMapping(value = "selectTotalElements")
+    public ResponseEntity<Integer> selectTotalElements(HttpServletRequest request) {
+        return mapsService.selectTotalElements(super.getSessionUser(request).getLevel());
+    }
 }

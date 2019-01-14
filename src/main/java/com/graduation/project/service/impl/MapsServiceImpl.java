@@ -132,4 +132,10 @@ public class MapsServiceImpl implements MapsService {
         }
         return ResponseEntityUtil.success(updateCount);
     }
+
+    @Override
+    public ResponseEntity<Integer> selectTotalElements(String level) {
+        int number = level.length();
+        return ResponseEntityUtil.success(mapsMapper.selectTotalElements(level, number));
+    }
 }

@@ -62,4 +62,10 @@ public class AdController extends BaseController {
         record.setUpdateBy(super.getSessionUser(request).getTruename());
         return adService.updateByPrimaryKeySelective(record);
     }
+
+    @ApiOperation(value = "查看广告总数", notes = "查看广告总数")
+    @GetMapping(value = "selectTotalElements")
+    public ResponseEntity<Integer> selectTotalElements() {
+        return adService.selectTotalElements();
+    }
 }

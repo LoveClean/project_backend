@@ -16,4 +16,6 @@ public interface MapsService {
     PageResponseBean selectListBySearch(String name, String areaId, Integer pageNum, Integer pageSize, String level);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(Maps record);
+
+    ResponseEntity<Integer> selectTotalElements(String level);
 }

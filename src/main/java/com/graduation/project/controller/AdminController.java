@@ -182,4 +182,10 @@ public class AdminController extends BaseController {
         deleteSessionUser(request);
         return ResponseEntityUtil.success();
     }
+
+    @ApiOperation(value = "查看管理员总数", notes = "查看管理员总数")
+    @GetMapping(value = "selectTotalElements")
+    public ResponseEntity<Integer> selectTotalElements(HttpServletRequest request) {
+        return adminService.selectTotalElements(super.getSessionUser(request).getLevel());
+    }
 }

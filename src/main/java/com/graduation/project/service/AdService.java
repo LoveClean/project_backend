@@ -16,4 +16,6 @@ public interface AdService {
     PageResponseBean selectListBySearch(String name, String groupid, Integer pageNum, Integer pageSize);
 
     ResponseEntity<Integer> updateByPrimaryKeySelective(Ad record);
+
+    ResponseEntity<Integer> selectTotalElements();
 }

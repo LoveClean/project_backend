@@ -143,4 +143,9 @@ public class AdServiceImpl implements AdService {
         }
         return ResponseEntityUtil.success(updateCount);
     }
+
+    @Override
+    public ResponseEntity<Integer> selectTotalElements() {
+        return ResponseEntityUtil.success(adMapper.selectTotalElements());
+    }
 }
