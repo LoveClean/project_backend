@@ -127,15 +127,18 @@ public class AdminController extends BaseController {
         }
         return adminService.updatePasswordById(record.getId(), bean.getOldPassword(), bean.getNewPassword(), super.getSessionUser(request).getTruename());
     }
-//    @ApiOperation(value = "修改管理员密码", notes = "修改管理员密码")
-//    @PutMapping(value = "updatePasswordById")
-//    public ResponseEntity<Integer> updatePasswordById(@Valid @RequestBody AdminUpdatePasswordById bean, HttpServletRequest request) {
-//        return adminService.updatePasswordById(bean.getId(), bean.getOldPassword(), bean.getNewPassword(), super.getSessionUser(request).getTruename());
-//    }
 
     @ApiOperation(value = "修改管理员状态", notes = "修改管理员状态")
     @PutMapping(value = "updateStatusById")
     public ResponseEntity<Integer> updateStatusById(@Valid @RequestBody AdminUpdateStatusById bean, HttpServletRequest request) {
+        // 校验身份等级，防止越权
+        Admin admin = adminService.selectByPrimaryKey(bean.getId()).getData();
+        String level = super.getSessionUser(request).getLevel();
+        int levelLength = level.length();
+        if (!admin.getLevel().substring(0, levelLength).equals(level) || level.equals(admin.getLevel())) {
+            return ResponseEntityUtil.fail("身份越权");
+        }
+
         return adminService.updateStatusById(bean.getId(), bean.getStatus(), super.getSessionUser(request).getTruename());
     }
 
