@@ -6,9 +6,12 @@ import com.graduation.project.dao.entity.Admin;
 import com.graduation.project.service.AdminService;
 import com.graduation.project.service.MemcachedService;
 import com.graduation.project.service.SmsService;
+//import com.graduation.project.service.SysLogService;
+import com.graduation.project.service.SysLogService;
 import com.graduation.project.util.ResponseEntity;
 import com.graduation.project.util.ResponseEntityUtil;
 import com.graduation.project.vo.AdminVO;
+import com.graduation.project.vo.SysLogVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,8 @@ public class AdminController extends BaseController {
     private MemcachedService memcachedService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private SysLogService sysLogService;
 
     @ApiOperation(value = "删除管理员", notes = "根据主键删除")
     @DeleteMapping(value = "deleteByPrimaryKey")
@@ -187,5 +192,14 @@ public class AdminController extends BaseController {
     @GetMapping(value = "selectTotalElements")
     public ResponseEntity<Integer> selectTotalElements(HttpServletRequest request) {
         return adminService.selectTotalElements(super.getSessionUser(request).getLevel());
+    }
+
+    @ApiOperation(value = "操作记录", notes = "操作记录")
+    @GetMapping(value = "records")
+    public PageResponseBean<SysLogVo> records(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        PageResponseBean page = sysLogService.sysLog(pageNum, pageSize);
+        page.setCode(0);
+        page.setHttpStatus(200);
+        return page;
     }
 }
