@@ -6,7 +6,6 @@ import com.graduation.project.dao.entity.Admin;
 import com.graduation.project.service.AdminService;
 import com.graduation.project.service.MemcachedService;
 import com.graduation.project.service.SmsService;
-//import com.graduation.project.service.SysLogService;
 import com.graduation.project.service.SysLogService;
 import com.graduation.project.util.ResponseEntity;
 import com.graduation.project.util.ResponseEntityUtil;
